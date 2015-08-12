@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "ActivityIndicator.h"
+#import "UserInformation.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [ActivityIndicator getInstanceForYorigin:self.window.center.y -80 forXorigin:self.window.center.x-50];
+    [UserInformation updateCategoryList];
     return YES;
 }
 

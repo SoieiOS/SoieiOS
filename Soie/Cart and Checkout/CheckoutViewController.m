@@ -1,22 +1,22 @@
 //
-//  ViewController.m
+//  CheckoutViewController.m
 //  Soie
 //
-//  Created by Abhishek Tyagi on 12/06/15.
+//  Created by Abhishek Tyagi on 25/07/15.
 //  Copyright (c) 2015 Abhishek Tyagi. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "CheckoutViewController.h"
 
-@interface ViewController ()
+@interface CheckoutViewController ()
 
 @end
 
-@implementation ViewController
+@implementation CheckoutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

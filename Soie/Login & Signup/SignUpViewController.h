@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  SignUpViewController.h
 //  Soie
 //
 //  Created by Abhishek Tyagi on 12/06/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface SignUpViewController : UIViewController
 
 @end
-
