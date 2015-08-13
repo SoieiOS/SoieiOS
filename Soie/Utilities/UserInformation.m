@@ -23,10 +23,13 @@
 + (NSDictionary *)getUserInformation {
     NSError *error;
     NSData *jsonData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userInformation"] dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *jsonDict = [NSJSONSerialization
-                              JSONObjectWithData:jsonData
-                              options:kNilOptions
-                              error:&error];
+    NSDictionary *jsonDict = nil;
+    if (jsonData) {
+        jsonDict = [NSJSONSerialization
+                    JSONObjectWithData:jsonData
+                    options:kNilOptions
+                    error:&error];  
+    }
     
     NSLog(@"Details ::::::::::::: %@",jsonDict);
     return jsonDict;
