@@ -36,6 +36,17 @@
 		AC001DDF1B6F503100BDEFD2 /* Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DDD1B6F503100BDEFD2 /* Checkmark@2x.png */; };
 		AC001DE21B6F863F00BDEFD2 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC001DE11B6F863F00BDEFD2 /* CategoryViewController.m */; };
 		AC0CF21E1B4E09BE00D0980B /* CartObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0CF21D1B4E09BE00D0980B /* CartObject.m */; };
+		AC12F2DC1B7B972B00300AAE /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2DB1B7B972B00300AAE /* DashboardViewController.m */; };
+		AC12F2F31B7B9A5E00300AAE /* XLBarPagerTabStripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2E01B7B9A5E00300AAE /* XLBarPagerTabStripViewController.m */; };
+		AC12F2F41B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2E21B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.m */; };
+		AC12F2F51B7B9A5E00300AAE /* XLPagerTabStripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2E41B7B9A5E00300AAE /* XLPagerTabStripViewController.m */; };
+		AC12F2F61B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2E61B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.m */; };
+		AC12F2F71B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2E81B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.m */; };
+		AC12F2F81B7B9A5E00300AAE /* FXPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2EC1B7B9A5E00300AAE /* FXPageControl.m */; };
+		AC12F2F91B7B9A5E00300AAE /* XLBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2EE1B7B9A5E00300AAE /* XLBarView.m */; };
+		AC12F2FA1B7B9A5E00300AAE /* XLButtonBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2F01B7B9A5E00300AAE /* XLButtonBarView.m */; };
+		AC12F2FB1B7B9A5E00300AAE /* XLButtonBarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2F21B7B9A5E00300AAE /* XLButtonBarViewCell.m */; };
+		AC12F2FE1B7BA13000300AAE /* ChildCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2FD1B7BA13000300AAE /* ChildCategoryViewController.m */; };
 		AC35F3FA1B2B2A350018013C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F3F91B2B2A350018013C /* main.m */; };
 		AC35F3FD1B2B2A350018013C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F3FC1B2B2A350018013C /* AppDelegate.m */; };
 		AC35F4031B2B2A350018013C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC35F4011B2B2A350018013C /* Main.storyboard */; };
@@ -136,6 +147,28 @@
 		AC001DE11B6F863F00BDEFD2 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		AC0CF21C1B4E09BE00D0980B /* CartObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartObject.h; path = "Main View Controllers/CartObject.h"; sourceTree = "<group>"; };
 		AC0CF21D1B4E09BE00D0980B /* CartObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartObject.m; path = "Main View Controllers/CartObject.m"; sourceTree = "<group>"; };
+		AC12F2DA1B7B972B00300AAE /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		AC12F2DB1B7B972B00300AAE /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		AC12F2DF1B7B9A5E00300AAE /* XLBarPagerTabStripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLBarPagerTabStripViewController.h; sourceTree = "<group>"; };
+		AC12F2E01B7B9A5E00300AAE /* XLBarPagerTabStripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLBarPagerTabStripViewController.m; sourceTree = "<group>"; };
+		AC12F2E11B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLButtonBarPagerTabStripViewController.h; sourceTree = "<group>"; };
+		AC12F2E21B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLButtonBarPagerTabStripViewController.m; sourceTree = "<group>"; };
+		AC12F2E31B7B9A5E00300AAE /* XLPagerTabStripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPagerTabStripViewController.h; sourceTree = "<group>"; };
+		AC12F2E41B7B9A5E00300AAE /* XLPagerTabStripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLPagerTabStripViewController.m; sourceTree = "<group>"; };
+		AC12F2E51B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLSegmentedPagerTabStripViewController.h; sourceTree = "<group>"; };
+		AC12F2E61B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLSegmentedPagerTabStripViewController.m; sourceTree = "<group>"; };
+		AC12F2E71B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLTwitterPagerTabStripViewController.h; sourceTree = "<group>"; };
+		AC12F2E81B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLTwitterPagerTabStripViewController.m; sourceTree = "<group>"; };
+		AC12F2EB1B7B9A5E00300AAE /* FXPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXPageControl.h; sourceTree = "<group>"; };
+		AC12F2EC1B7B9A5E00300AAE /* FXPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXPageControl.m; sourceTree = "<group>"; };
+		AC12F2ED1B7B9A5E00300AAE /* XLBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLBarView.h; sourceTree = "<group>"; };
+		AC12F2EE1B7B9A5E00300AAE /* XLBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLBarView.m; sourceTree = "<group>"; };
+		AC12F2EF1B7B9A5E00300AAE /* XLButtonBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLButtonBarView.h; sourceTree = "<group>"; };
+		AC12F2F01B7B9A5E00300AAE /* XLButtonBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLButtonBarView.m; sourceTree = "<group>"; };
+		AC12F2F11B7B9A5E00300AAE /* XLButtonBarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLButtonBarViewCell.h; sourceTree = "<group>"; };
+		AC12F2F21B7B9A5E00300AAE /* XLButtonBarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLButtonBarViewCell.m; sourceTree = "<group>"; };
+		AC12F2FC1B7BA13000300AAE /* ChildCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildCategoryViewController.h; sourceTree = "<group>"; };
+		AC12F2FD1B7BA13000300AAE /* ChildCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildCategoryViewController.m; sourceTree = "<group>"; };
 		AC35F3F41B2B2A350018013C /* Soie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC35F3F81B2B2A350018013C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC35F3F91B2B2A350018013C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -288,6 +321,55 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
+		AC12F2DD1B7B9A5E00300AAE /* XL */ = {
+			isa = PBXGroup;
+			children = (
+				AC12F2DE1B7B9A5E00300AAE /* Controllers */,
+				AC12F2E91B7B9A5E00300AAE /* Views */,
+			);
+			path = XL;
+			sourceTree = "<group>";
+		};
+		AC12F2DE1B7B9A5E00300AAE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AC12F2DF1B7B9A5E00300AAE /* XLBarPagerTabStripViewController.h */,
+				AC12F2E01B7B9A5E00300AAE /* XLBarPagerTabStripViewController.m */,
+				AC12F2E11B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.h */,
+				AC12F2E21B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.m */,
+				AC12F2E31B7B9A5E00300AAE /* XLPagerTabStripViewController.h */,
+				AC12F2E41B7B9A5E00300AAE /* XLPagerTabStripViewController.m */,
+				AC12F2E51B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.h */,
+				AC12F2E61B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.m */,
+				AC12F2E71B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.h */,
+				AC12F2E81B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AC12F2E91B7B9A5E00300AAE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC12F2EA1B7B9A5E00300AAE /* FXPageControl */,
+				AC12F2ED1B7B9A5E00300AAE /* XLBarView.h */,
+				AC12F2EE1B7B9A5E00300AAE /* XLBarView.m */,
+				AC12F2EF1B7B9A5E00300AAE /* XLButtonBarView.h */,
+				AC12F2F01B7B9A5E00300AAE /* XLButtonBarView.m */,
+				AC12F2F11B7B9A5E00300AAE /* XLButtonBarViewCell.h */,
+				AC12F2F21B7B9A5E00300AAE /* XLButtonBarViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AC12F2EA1B7B9A5E00300AAE /* FXPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				AC12F2EB1B7B9A5E00300AAE /* FXPageControl.h */,
+				AC12F2EC1B7B9A5E00300AAE /* FXPageControl.m */,
+			);
+			path = FXPageControl;
+			sourceTree = "<group>";
+		};
 		AC35F3EB1B2B2A350018013C = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +452,7 @@
 		AC35F41E1B2B32F30018013C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AC12F2DD1B7B9A5E00300AAE /* XL */,
 				AC001DD91B6F501F00BDEFD2 /* BDKNotifyHUD.h */,
 				AC001DDA1B6F501F00BDEFD2 /* BDKNotifyHUD.m */,
 				AC35F58D1B318C610018013C /* CustomCollectionViewCell.h */,
@@ -484,6 +567,10 @@
 		AC35F4671B2B33CC0018013C /* Main View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AC12F2DA1B7B972B00300AAE /* DashboardViewController.h */,
+				AC12F2DB1B7B972B00300AAE /* DashboardViewController.m */,
+				AC12F2FC1B7BA13000300AAE /* ChildCategoryViewController.h */,
+				AC12F2FD1B7BA13000300AAE /* ChildCategoryViewController.m */,
 				AC35F47F1B2C23DB0018013C /* HomeViewController.h */,
 				AC35F4801B2C23DB0018013C /* HomeViewController.m */,
 				AC35F5771B3172200018013C /* ProductsListViewController.h */,
@@ -693,9 +780,12 @@
 				AC35F5791B3172200018013C /* ProductsListViewController.m in Sources */,
 				AC35F4641B2B32F30018013C /* AppNavigationController.m in Sources */,
 				AC35F46D1B2B34310018013C /* LoginViewController.m in Sources */,
+				AC12F2F31B7B9A5E00300AAE /* XLBarPagerTabStripViewController.m in Sources */,
 				ACCE87B31B63953F00D637D0 /* AddressListViewController.m in Sources */,
+				AC12F2F71B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.m in Sources */,
 				ACCE87A81B63873500D637D0 /* MyAccountViewController.m in Sources */,
 				AC510B1D1B5B95EC00EB0412 /* CountryListViewController.m in Sources */,
+				AC12F2F51B7B9A5E00300AAE /* XLPagerTabStripViewController.m in Sources */,
 				AC35F4591B2B32F30018013C /* UIImageView+AFNetworking.m in Sources */,
 				AC35F4531B2B32F30018013C /* AFImageRequestOperation.m in Sources */,
 				AC35F4521B2B32F30018013C /* AFHTTPRequestOperation.m in Sources */,
@@ -713,11 +803,16 @@
 				AC5109FA1B4EB1F400EB0412 /* CartViewController.m in Sources */,
 				AC35F4651B2B32F30018013C /* MenuViewController.m in Sources */,
 				AC35F4581B2B32F30018013C /* AFXMLRequestOperation.m in Sources */,
+				AC12F2F41B7B9A5E00300AAE /* XLButtonBarPagerTabStripViewController.m in Sources */,
 				AC35F4501B2B32F30018013C /* ActivityIndicator.m in Sources */,
+				AC12F2F61B7B9A5E00300AAE /* XLSegmentedPagerTabStripViewController.m in Sources */,
 				AC35F45F1B2B32F30018013C /* InputTextValidator.m in Sources */,
 				AC001DD61B6CDBD500BDEFD2 /* UIImage+Utilities.m in Sources */,
 				AC35F4611B2B32F30018013C /* ResizeImage.m in Sources */,
+				AC12F2FE1B7BA13000300AAE /* ChildCategoryViewController.m in Sources */,
+				AC12F2F91B7B9A5E00300AAE /* XLBarView.m in Sources */,
 				AC6830A91B3C02A3006AA72E /* SelectSizeColorViewController.m in Sources */,
+				AC12F2F81B7B9A5E00300AAE /* FXPageControl.m in Sources */,
 				AC35F45B1B2B32F30018013C /* CustomTableViewCell.m in Sources */,
 				AC35F45E1B2B32F30018013C /* HTHorizontalSelectionListScrollView.m in Sources */,
 				AC001DE21B6F863F00BDEFD2 /* CategoryViewController.m in Sources */,
@@ -725,6 +820,7 @@
 				ACA812151B709B69007B8433 /* DileveryViewController.m in Sources */,
 				AC35F4811B2C23DB0018013C /* HomeViewController.m in Sources */,
 				AC35F3FD1B2B2A350018013C /* AppDelegate.m in Sources */,
+				AC12F2FA1B7B9A5E00300AAE /* XLButtonBarView.m in Sources */,
 				ACA812191B709B8F007B8433 /* GuestLoginViewController.m in Sources */,
 				AC35F4541B2B32F30018013C /* AFJSONRequestOperation.m in Sources */,
 				AC35F3FA1B2B2A350018013C /* main.m in Sources */,
@@ -733,8 +829,10 @@
 				AC35F4621B2B32F30018013C /* SWRevealViewController.m in Sources */,
 				AC0CF21E1B4E09BE00D0980B /* CartObject.m in Sources */,
 				AC35F4551B2B32F30018013C /* AFNetworkActivityIndicatorManager.m in Sources */,
+				AC12F2DC1B7B972B00300AAE /* DashboardViewController.m in Sources */,
 				ACCE87AE1B6387F600D637D0 /* EditPersonalInfoViewController.m in Sources */,
 				AC35F45A1B2B32F30018013C /* APIHandler.m in Sources */,
+				AC12F2FB1B7B9A5E00300AAE /* XLButtonBarViewCell.m in Sources */,
 				AC35F4701B2B34450018013C /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

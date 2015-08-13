@@ -9,7 +9,7 @@
 #import "MenuViewController.h"
 #import "SWRevealViewController.h"
 #import "AppNavigationController.h"
-#import "HomeViewController.h"
+#import "DashboardViewController.h"
 #import "CategoryViewController.h"
 #import "UserInformation.h"
 
@@ -111,9 +111,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
-        HomeViewController *homeView = [self.storyboard instantiateViewControllerWithIdentifier:@"homeView"];
+        DashboardViewController *dashboardView = [self.storyboard instantiateViewControllerWithIdentifier:@"dashboardView"];
         AppNavigationController* navController = (AppNavigationController*)self.revealViewController.frontViewController;
-        [navController setViewControllers: @[homeView] animated: NO ];
+        [navController setViewControllers: @[dashboardView] animated: NO ];
         [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated: YES];
     }
     else if (indexPath.row == 1) {
