@@ -14,4 +14,9 @@
 + (NSMutableArray *)getCategoryList;
 + (void)updateCategoryList;
 
+
++ (void)saveProductInUserWishlist:(NSDictionary *)productInfo;
++ (void)removeProductFromWishList:(NSDictionary *)productInfo;
++ (NSMutableArray *)getUserWishList ;
++ (BOOL)checkProductPresentInWishList:(NSDictionary *)productInfo;
 @end

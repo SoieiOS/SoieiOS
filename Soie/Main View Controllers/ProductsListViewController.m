@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "CustomCollectionViewCell.h"
 #import "ProductDetailsViewController.h"
+#import "UserInformation.h"
 #import "APIHandler.h"
 #import "Utilities.h"
 
@@ -73,7 +74,7 @@
     
     [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *friendInfo = [listOfProducts objectAtIndex:indexPath.row];
-    if (friendInfo.allKeys.count > 0) {
+    if (friendInfo) {
         cell.titleLabel.text = [friendInfo objectForKey:@"name"];
         cell.priceLabel.text = [friendInfo objectForKey:@"price"];
         cell.titleLabel.text = [friendInfo objectForKey:@"name"];
@@ -82,6 +83,7 @@
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
             [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         }
+        cell.wishListButton.tag = indexPath.row;
     }
     return cell;
 }
@@ -106,5 +108,14 @@
     productDetailsView.productInfo = [listOfProducts objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:productDetailsView animated:YES];
 }
+
+#pragma mark userWishlist methods
+
+- (IBAction)addToWishlistButtonClicked:(UIButton *)button {
+    NSLog(@"Button : %ld",(long)button.tag);
+    [UserInformation saveProductInUserWishlist:[listOfProducts objectAtIndex:button.tag]];
+    NSLog(@"%@",[UserInformation getUserWishList]);
+}
+
 
 @end

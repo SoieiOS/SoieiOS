@@ -66,6 +66,8 @@
         [ActivityIndicator stopAnimatingForView:self.view];
         if (success) {
             NSLog(@"Response : %@",jsonDict);
+            CartObject *cartInstance = [CartObject getInstance];
+            cartInstance.listOfBanners = [[[jsonDict objectForKey:@"data"] objectForKey:@"banner"] mutableCopy];
             listOfCategories = [[[jsonDict objectForKey:@"data"] objectForKey:@"cat_home"] mutableCopy];
             _isReload = YES;
             [self reloadPagerTabStripView];

@@ -23,10 +23,13 @@
 + (NSDictionary *)getUserInformation {
     NSError *error;
     NSData *jsonData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userInformation"] dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *jsonDict = [NSJSONSerialization
-                              JSONObjectWithData:jsonData
-                              options:kNilOptions
-                              error:&error];
+    NSDictionary *jsonDict = [[NSDictionary alloc] init];
+    if (jsonData) {
+        jsonDict = [NSJSONSerialization
+                    JSONObjectWithData:jsonData
+                    options:kNilOptions
+                    error:&error];
+    }
     
     NSLog(@"Details ::::::::::::: %@",jsonDict);
     return jsonDict;
@@ -53,6 +56,52 @@
 + (NSMutableArray *)getCategoryList {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"kCategoryList"];
     return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+}
+
++ (void)saveProductInUserWishlist:(NSDictionary *)productInfo {
+    NSMutableArray *wishList = [self getUserWishList];
+    
+    if (![self checkProductPresentInWishList:productInfo]) {
+        [wishList addObject:productInfo];
+    }
+    else {
+        [wishList removeObject:productInfo];
+    }
+    [self saveWishList:wishList];
+}
+
++ (void)saveWishList:(NSMutableArray *)wishList {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:wishList];
+    [userDefaults setObject:data forKey:@"kUserWishList"];
+    [userDefaults synchronize];
+}
+
++ (NSMutableArray *)getUserWishList {
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"kUserWishList"];
+    if (data) {
+        return [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
+    }
+    
+    return [[NSMutableArray alloc] init];
+}
+
++ (void)removeProductFromWishList:(NSDictionary *)productInfo {
+    NSMutableArray *wishList = [self getUserWishList];
+    [wishList removeObject:productInfo];
+    [self saveWishList:wishList];
+}
+
++ (BOOL)checkProductPresentInWishList:(NSDictionary *)productInfo {
+    BOOL isExists = NO;
+    NSMutableArray *wishList = [self getUserWishList];
+
+    for (NSDictionary *product in wishList) {
+        if ([[product objectForKey:@"id"] integerValue] == [[productInfo objectForKey:@"id"] integerValue] ) {
+            isExists = YES;
+        }
+    }
+    return isExists;
 }
 
 @end

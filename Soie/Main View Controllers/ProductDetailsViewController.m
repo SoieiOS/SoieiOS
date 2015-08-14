@@ -51,7 +51,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,6 +84,10 @@
             cell.titleLabel.text = @"No Description";
         }
     }
+    else if (indexPath.row == 4) {
+        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"scrollViewCell1"];
+        [self loadScrollViewForBanner:cell];
+    }
     return cell;
 }
 
@@ -100,6 +104,9 @@
     else if (indexPath.row == 3) {
         CGFloat descriptionHeight = [Utilities heigthWithWidth:self.view.frame.size.width-20 andFont:[UIFont systemFontOfSize:15] string:[_productInfo objectForKey:@"description"]];
         return descriptionHeight+48;
+    }
+    else if (indexPath.row == 4) {
+        return 300;
     }
     return 83;
 }
@@ -129,6 +136,30 @@
     
     cell.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * images.count, cell.frame.size.height-30);
 
+}
+
+- (void)loadScrollViewForBanner:(CustomTableViewCell *)cell {
+    //    NSArray *images = [_productInfo objectForKey:@"images"];
+    for (int i = 0; i < [cartInstance.listOfBanners count]; i++) {
+        CGRect frame;
+        frame.origin.x = cell.frame.size.width * i;
+        frame.origin.y = 0;
+        frame.size = cell.scrollView.frame.size;
+        
+        UIImageView *subview = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, cell.scrollView.frame.size.height)];
+        NSString *imageUrl = [[cartInstance.listOfBanners objectAtIndex:i] objectForKey:@"image"];
+        imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [subview setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+        //        subview.contentMode = UIViewContentModeScaleAspectFit;
+        //        subview.backgroundColor = [UIColor blackColor];
+        [cell.scrollView addSubview:subview];
+    }
+    
+    cell.pageControl.numberOfPages = cartInstance.listOfBanners.count;
+    
+    cell.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * cartInstance.listOfBanners.count, cell.frame.size.height-30);
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

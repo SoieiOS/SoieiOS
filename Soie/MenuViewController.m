@@ -9,9 +9,9 @@
 #import "MenuViewController.h"
 #import "SWRevealViewController.h"
 #import "AppNavigationController.h"
-#import "DashboardViewController.h"
 #import "CategoryViewController.h"
 #import "UserInformation.h"
+#import "WishlistViewController.h"
 
 @interface MenuViewController ()
 
@@ -110,21 +110,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    id viewController;
     if (indexPath.row == 0) {
-        DashboardViewController *dashboardView = [self.storyboard instantiateViewControllerWithIdentifier:@"dashboardView"];
-        AppNavigationController* navController = (AppNavigationController*)self.revealViewController.frontViewController;
-        [navController setViewControllers: @[dashboardView] animated: NO ];
-        [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated: YES];
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"dashboardView"];
     }
     else if (indexPath.row == 1) {
-        CategoryViewController *categoryView = [self.storyboard instantiateViewControllerWithIdentifier:@"categoryView"];
-        categoryView.listOfCategories = [UserInformation getCategoryList];
-        categoryView.isParentView = YES;
-        AppNavigationController* navController = (AppNavigationController*)self.revealViewController.frontViewController;
-        [navController setViewControllers: @[categoryView] animated: NO ];
-        [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated: YES];
-        return;
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"categoryView"];
+        [viewController setListOfCategories:[UserInformation getCategoryList]];
+        [viewController setIsParentView:YES];
     }
+    else if (indexPath.row == 2) {
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"wishlistView"];
+        [viewController setListOfProducts:[UserInformation getUserWishList]];
+    }
+    AppNavigationController* navController = (AppNavigationController*)self.revealViewController.frontViewController;
+    [navController setViewControllers: @[viewController] animated: NO ];
+    [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated: YES];
+    return;
     
 }
 

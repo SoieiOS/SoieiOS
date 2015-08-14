@@ -14,5 +14,6 @@
 @property (nonatomic, strong) IBOutlet UILabel          *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel          *priceLabel;
 @property (nonatomic, strong) IBOutlet UILabel          *manufacturerLabel;
-
+@property (nonatomic, strong) IBOutlet UIButton         *wishListButton;
+@property (nonatomic, strong) IBOutlet UIButton         *removeButton;
 @end

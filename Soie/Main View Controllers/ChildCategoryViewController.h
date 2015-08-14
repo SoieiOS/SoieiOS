@@ -12,6 +12,9 @@
 @interface ChildCategoryViewController : UIViewController <XLPagerTabStripChildItem,UICollectionViewDataSource, UICollectionViewDelegate> {
     IBOutlet UICollectionView       *productCollectionView;
     NSMutableArray                  *listOfProducts;
+    NSInteger                       pageNumber;
+    BOOL                            isLoading;
+    BOOL                            allProductsLoaded;
 }
 
 @property (nonatomic, strong) NSString      *categoryId;

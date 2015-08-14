@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "CustomCollectionViewCell.h"
 #import "ProductDetailsViewController.h"
+#import "UserInformation.h"
 #import "APIHandler.h"
 #import "Utilities.h"
 @interface ChildCategoryViewController ()
@@ -28,9 +29,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    listOfProducts = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
     
-    [self getListOfProducts];
+    pageNumber = 1;
+    [self getListOfProducts:pageNumber];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,16 +42,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)getListOfProducts {
+- (void)getListOfProducts:(NSInteger)page {
     [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
-    NSString *urlString = [NSString stringWithFormat:@"%@/products/category/%@/limit/10/page/1",API_BASE_URL,[_categoryInfo objectForKey:@"category_id"]];
+    NSString *urlString = [NSString stringWithFormat:@"%@/products/category/%@/limit/10/page/%ld",API_BASE_URL,[_categoryInfo objectForKey:@"category_id"],(long)page];
 
     [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
         [ActivityIndicator stopAnimatingForView:self.view];
         
         if (success) {
             NSLog(@"Response : %@",jsonDict);
-            listOfProducts = [[NSMutableArray alloc] initWithArray:[jsonDict objectForKey:@"data"]];
+            allProductsLoaded = YES;
+            if ([[jsonDict objectForKey:@"data"] count] > 0) {
+                [listOfProducts addObjectsFromArray:[jsonDict objectForKey:@"data"]];
+                allProductsLoaded = NO;
+            }
+            isLoading = NO;
             [productCollectionView reloadData];
         }
     }];
@@ -74,7 +83,7 @@
     
     [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *friendInfo = [listOfProducts objectAtIndex:indexPath.row];
-    if (friendInfo.allKeys.count > 0) {
+    if (friendInfo) {
         cell.titleLabel.text = [friendInfo objectForKey:@"name"];
         cell.priceLabel.text = [friendInfo objectForKey:@"price"];
         cell.titleLabel.text = [friendInfo objectForKey:@"name"];
@@ -83,6 +92,7 @@
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
             [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         }
+        cell.wishListButton.tag = indexPath.row;
     }
     return cell;
 }
@@ -106,6 +116,23 @@
     ProductDetailsViewController *productDetailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"productDetailsView"];
     productDetailsView.productInfo = [listOfProducts objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:productDetailsView animated:YES];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (!allProductsLoaded && !isLoading && listOfProducts.count%10==0) {
+        isLoading = YES;
+        NSLog(@"Cell displayed");
+        pageNumber = pageNumber + 1;
+        [self getListOfProducts:pageNumber];
+    }
+}
+#pragma mark userWishlist methods 
+
+- (IBAction)addToWishlistButtonClicked:(UIButton *)button {
+    NSLog(@"Button : %ld",(long)button.tag);
+    [UserInformation saveProductInUserWishlist:[listOfProducts objectAtIndex:button.tag]];
+    
+    NSLog(@"%@",[UserInformation getUserWishList]);
 }
 
 @end

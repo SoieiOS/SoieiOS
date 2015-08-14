@@ -47,6 +47,8 @@
 		AC12F2FA1B7B9A5E00300AAE /* XLButtonBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2F01B7B9A5E00300AAE /* XLButtonBarView.m */; };
 		AC12F2FB1B7B9A5E00300AAE /* XLButtonBarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2F21B7B9A5E00300AAE /* XLButtonBarViewCell.m */; };
 		AC12F2FE1B7BA13000300AAE /* ChildCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2FD1B7BA13000300AAE /* ChildCategoryViewController.m */; };
+		AC12F31A1B7E068500300AAE /* WishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F3191B7E068500300AAE /* WishlistViewController.m */; };
+		AC12F31C1B7E0C9B00300AAE /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = AC12F31B1B7E0C9B00300AAE /* trash.png */; };
 		AC35F3FA1B2B2A350018013C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F3F91B2B2A350018013C /* main.m */; };
 		AC35F3FD1B2B2A350018013C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F3FC1B2B2A350018013C /* AppDelegate.m */; };
 		AC35F4031B2B2A350018013C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC35F4011B2B2A350018013C /* Main.storyboard */; };
@@ -169,6 +171,9 @@
 		AC12F2F21B7B9A5E00300AAE /* XLButtonBarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLButtonBarViewCell.m; sourceTree = "<group>"; };
 		AC12F2FC1B7BA13000300AAE /* ChildCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildCategoryViewController.h; sourceTree = "<group>"; };
 		AC12F2FD1B7BA13000300AAE /* ChildCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildCategoryViewController.m; sourceTree = "<group>"; };
+		AC12F3181B7E068500300AAE /* WishlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishlistViewController.h; sourceTree = "<group>"; };
+		AC12F3191B7E068500300AAE /* WishlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishlistViewController.m; sourceTree = "<group>"; };
+		AC12F31B1B7E0C9B00300AAE /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		AC35F3F41B2B2A350018013C /* Soie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC35F3F81B2B2A350018013C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC35F3F91B2B2A350018013C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -445,6 +450,8 @@
 				AC35F44E1B2B32F30018013C /* MenuViewController.m */,
 				AC001DE01B6F863F00BDEFD2 /* CategoryViewController.h */,
 				AC001DE11B6F863F00BDEFD2 /* CategoryViewController.m */,
+				AC12F3181B7E068500300AAE /* WishlistViewController.h */,
+				AC12F3191B7E068500300AAE /* WishlistViewController.m */,
 			);
 			name = "Menu Controller";
 			sourceTree = "<group>";
@@ -596,6 +603,7 @@
 		AC35F4741B2B3BA60018013C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AC12F31B1B7E0C9B00300AAE /* trash.png */,
 				AC001DDC1B6F503100BDEFD2 /* Checkmark.png */,
 				AC001DDD1B6F503100BDEFD2 /* Checkmark@2x.png */,
 				AC001DC81B6CCF5500BDEFD2 /* unnamed-4.png */,
@@ -725,6 +733,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC12F31C1B7E0C9B00300AAE /* trash.png in Resources */,
 				AC001DBF1B6CB5CB00BDEFD2 /* ruler copy.png in Resources */,
 				AC001DBE1B6CB5CB00BDEFD2 /* like copy.png in Resources */,
 				AC001DBA1B6CB5CB00BDEFD2 /* action bar copy.png in Resources */,
@@ -820,6 +829,7 @@
 				ACA812151B709B69007B8433 /* DileveryViewController.m in Sources */,
 				AC35F4811B2C23DB0018013C /* HomeViewController.m in Sources */,
 				AC35F3FD1B2B2A350018013C /* AppDelegate.m in Sources */,
+				AC12F31A1B7E068500300AAE /* WishlistViewController.m in Sources */,
 				AC12F2FA1B7B9A5E00300AAE /* XLButtonBarView.m in Sources */,
 				ACA812191B709B8F007B8433 /* GuestLoginViewController.m in Sources */,
 				AC35F4541B2B32F30018013C /* AFJSONRequestOperation.m in Sources */,

@@ -11,8 +11,8 @@
 @interface CartObject : NSObject
 
 @property (nonatomic,strong) NSString *sessionId;
-
 @property (nonatomic,strong) NSMutableArray *listOfCartItems;
+@property (nonatomic,strong) NSMutableArray *listOfBanners;
 
 +(CartObject*)getInstance;
 +(void)clearCartModel;

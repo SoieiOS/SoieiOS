@@ -20,6 +20,7 @@ static CartObject *cartInstance =nil;
             cartInstance= [CartObject new];
             NSMutableArray *emptyArray = [[NSMutableArray alloc] init];            
             [cartInstance setListOfCartItems:[emptyArray mutableCopy]];
+            [cartInstance setListOfBanners:[emptyArray mutableCopy]];
             [cartInstance setSessionId:@""];
         }
     }
