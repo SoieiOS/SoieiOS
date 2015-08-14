@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		978176581B7D083A0015212B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978176571B7D083A0015212B /* FacebookSDK.framework */; };
 		AC001DB71B6CB5CB00BDEFD2 /* iosScreen750.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DA61B6CB5CB00BDEFD2 /* iosScreen750.png */; };
 		AC001DB81B6CB5CB00BDEFD2 /* iosScreen7502.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DA71B6CB5CB00BDEFD2 /* iosScreen7502.png */; };
 		AC001DB91B6CB5CB00BDEFD2 /* iosScreen7501.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DA81B6CB5CB00BDEFD2 /* iosScreen7501.png */; };
@@ -84,7 +85,6 @@
 		AC35F47A1B2B3BA60018013C /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = AC35F4761B2B3BA60018013C /* menu.png */; };
 		AC35F47B1B2B3BA60018013C /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC35F4771B2B3BA60018013C /* menu@2x.png */; };
 		AC35F47C1B2B3BA60018013C /* menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC35F4781B2B3BA60018013C /* menu@3x.png */; };
-		AC35F47E1B2BFC220018013C /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC35F47D1B2BFC220018013C /* FacebookSDK.framework */; };
 		AC35F4811B2C23DB0018013C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F4801B2C23DB0018013C /* HomeViewController.m */; };
 		AC35F5791B3172200018013C /* ProductsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F5781B3172200018013C /* ProductsListViewController.m */; };
 		AC35F58E1B318C610018013C /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F58C1B318C610018013C /* CustomCollectionViewCell.m */; };
@@ -116,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		978176571B7D083A0015212B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		AC001DA61B6CB5CB00BDEFD2 /* iosScreen750.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosScreen750.png; sourceTree = "<group>"; };
 		AC001DA71B6CB5CB00BDEFD2 /* iosScreen7502.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosScreen7502.png; sourceTree = "<group>"; };
 		AC001DA81B6CB5CB00BDEFD2 /* iosScreen7501.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosScreen7501.png; sourceTree = "<group>"; };
@@ -242,7 +243,6 @@
 		AC35F4761B2B3BA60018013C /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		AC35F4771B2B3BA60018013C /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		AC35F4781B2B3BA60018013C /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
-		AC35F47D1B2BFC220018013C /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK.framework; sourceTree = "<group>"; };
 		AC35F47F1B2C23DB0018013C /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		AC35F4801B2C23DB0018013C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		AC35F5771B3172200018013C /* ProductsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsListViewController.h; sourceTree = "<group>"; };
@@ -285,7 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC35F47E1B2BFC220018013C /* FacebookSDK.framework in Frameworks */,
+				978176581B7D083A0015212B /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +378,7 @@
 		AC35F3EB1B2B2A350018013C = {
 			isa = PBXGroup;
 			children = (
-				AC35F47D1B2BFC220018013C /* FacebookSDK.framework */,
+				978176571B7D083A0015212B /* FacebookSDK.framework */,
 				AC35F3F61B2B2A350018013C /* Soie */,
 				AC35F4101B2B2A350018013C /* SoieTests */,
 				AC35F3F51B2B2A350018013C /* Products */,
@@ -969,6 +969,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/quovantis/Documents,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Soie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -985,6 +986,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/quovantis/Documents,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Soie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

@@ -78,6 +78,7 @@
                                     tfLastName.text,@"lastname",
                                     tfPassword.text,@"password",
                                     tfPhoneNumber.text,@"telephone",
+                                    @"1",@"agree",
                                     nil];
     NSString *urlString = [NSString stringWithFormat:@"%@register",API_BASE_URL];
     
