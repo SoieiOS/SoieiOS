@@ -7,7 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		976EEFDA1B7F73EF004D1314 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 976EEFD81B7F73EF004D1314 /* PaymentViewController.m */; };
+		976EEFDB1B7F73EF004D1314 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 976EEFD91B7F73EF004D1314 /* PaymentViewController.xib */; };
+		976EEFE01B7F7A6F004D1314 /* RadioButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 976EEFDF1B7F7A6F004D1314 /* RadioButton.png */; };
+		976EEFE51B7F940C004D1314 /* CheckBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 976EEFE21B7F940C004D1314 /* CheckBox.png */; };
+		976EEFE61B7F940C004D1314 /* NonSelectedCheckBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 976EEFE31B7F940C004D1314 /* NonSelectedCheckBox.png */; };
+		976EEFE71B7F940C004D1314 /* NonSelectedRadio.png in Resources */ = {isa = PBXBuildFile; fileRef = 976EEFE41B7F940C004D1314 /* NonSelectedRadio.png */; };
+		976EEFEC1B7F9D36004D1314 /* CCAvenuePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 976EEFEA1B7F9D36004D1314 /* CCAvenuePayViewController.m */; };
+		976EEFED1B7F9D36004D1314 /* CCAvenuePayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 976EEFEB1B7F9D36004D1314 /* CCAvenuePayViewController.xib */; };
+		976EEFF61B7F9D51004D1314 /* libPaymentsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 976EEFF51B7F9D51004D1314 /* libPaymentsSDK.a */; };
+		976EEFF81B7FAC41004D1314 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 976EEFF71B7FAC41004D1314 /* SystemConfiguration.framework */; };
 		978176581B7D083A0015212B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978176571B7D083A0015212B /* FacebookSDK.framework */; };
+		9781765C1B7D08DC0015212B /* SelectAddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9781765A1B7D08DC0015212B /* SelectAddAddressViewController.m */; };
+		9781765D1B7D08DC0015212B /* SelectAddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9781765B1B7D08DC0015212B /* SelectAddAddressViewController.xib */; };
+		978176641B7D44300015212B /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978176621B7D44300015212B /* AddressCell.m */; };
+		978176651B7D44300015212B /* AddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 978176631B7D44300015212B /* AddressCell.xib */; };
 		AC001DB71B6CB5CB00BDEFD2 /* iosScreen750.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DA61B6CB5CB00BDEFD2 /* iosScreen750.png */; };
 		AC001DB81B6CB5CB00BDEFD2 /* iosScreen7502.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DA71B6CB5CB00BDEFD2 /* iosScreen7502.png */; };
 		AC001DB91B6CB5CB00BDEFD2 /* iosScreen7501.png in Resources */ = {isa = PBXBuildFile; fileRef = AC001DA81B6CB5CB00BDEFD2 /* iosScreen7501.png */; };
@@ -116,7 +130,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		976EEFD71B7F73EF004D1314 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaymentViewController.h; path = PaymentViewController/PaymentViewController.h; sourceTree = "<group>"; };
+		976EEFD81B7F73EF004D1314 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaymentViewController.m; path = PaymentViewController/PaymentViewController.m; sourceTree = "<group>"; };
+		976EEFD91B7F73EF004D1314 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PaymentViewController.xib; path = PaymentViewController/PaymentViewController.xib; sourceTree = "<group>"; };
+		976EEFDF1B7F7A6F004D1314 /* RadioButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RadioButton.png; path = PaymentViewController/RadioButton.png; sourceTree = "<group>"; };
+		976EEFE21B7F940C004D1314 /* CheckBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CheckBox.png; path = PaymentViewController/CheckBox.png; sourceTree = "<group>"; };
+		976EEFE31B7F940C004D1314 /* NonSelectedCheckBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NonSelectedCheckBox.png; path = PaymentViewController/NonSelectedCheckBox.png; sourceTree = "<group>"; };
+		976EEFE41B7F940C004D1314 /* NonSelectedRadio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NonSelectedRadio.png; path = PaymentViewController/NonSelectedRadio.png; sourceTree = "<group>"; };
+		976EEFE91B7F9D36004D1314 /* CCAvenuePayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAvenuePayViewController.h; sourceTree = "<group>"; };
+		976EEFEA1B7F9D36004D1314 /* CCAvenuePayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAvenuePayViewController.m; sourceTree = "<group>"; };
+		976EEFEB1B7F9D36004D1314 /* CCAvenuePayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CCAvenuePayViewController.xib; sourceTree = "<group>"; };
+		976EEFF01B7F9D51004D1314 /* PaymentsSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentsSDK.h; sourceTree = "<group>"; };
+		976EEFF11B7F9D51004D1314 /* PGMerchantConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGMerchantConfiguration.h; sourceTree = "<group>"; };
+		976EEFF21B7F9D51004D1314 /* PGOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGOrder.h; sourceTree = "<group>"; };
+		976EEFF31B7F9D51004D1314 /* PGServerEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGServerEnvironment.h; sourceTree = "<group>"; };
+		976EEFF41B7F9D51004D1314 /* PGTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGTransactionViewController.h; sourceTree = "<group>"; };
+		976EEFF51B7F9D51004D1314 /* libPaymentsSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPaymentsSDK.a; sourceTree = "<group>"; };
+		976EEFF71B7FAC41004D1314 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		978176571B7D083A0015212B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		978176591B7D08DC0015212B /* SelectAddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectAddAddressViewController.h; path = SelectAddAddressViewController/SelectAddAddressViewController.h; sourceTree = "<group>"; };
+		9781765A1B7D08DC0015212B /* SelectAddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectAddAddressViewController.m; path = SelectAddAddressViewController/SelectAddAddressViewController.m; sourceTree = "<group>"; };
+		9781765B1B7D08DC0015212B /* SelectAddAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectAddAddressViewController.xib; path = SelectAddAddressViewController/SelectAddAddressViewController.xib; sourceTree = "<group>"; };
+		978176611B7D44300015212B /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
+		978176621B7D44300015212B /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
+		978176631B7D44300015212B /* AddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressCell.xib; sourceTree = "<group>"; };
 		AC001DA61B6CB5CB00BDEFD2 /* iosScreen750.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosScreen750.png; sourceTree = "<group>"; };
 		AC001DA71B6CB5CB00BDEFD2 /* iosScreen7502.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosScreen7502.png; sourceTree = "<group>"; };
 		AC001DA81B6CB5CB00BDEFD2 /* iosScreen7501.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iosScreen7501.png; sourceTree = "<group>"; };
@@ -285,7 +322,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				976EEFF81B7FAC41004D1314 /* SystemConfiguration.framework in Frameworks */,
 				978176581B7D083A0015212B /* FacebookSDK.framework in Frameworks */,
+				976EEFF61B7F9D51004D1314 /* libPaymentsSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +338,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		976EEFDC1B7F73F2004D1314 /* PaymentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				976EEFE21B7F940C004D1314 /* CheckBox.png */,
+				976EEFE31B7F940C004D1314 /* NonSelectedCheckBox.png */,
+				976EEFE41B7F940C004D1314 /* NonSelectedRadio.png */,
+				976EEFDF1B7F7A6F004D1314 /* RadioButton.png */,
+				976EEFD71B7F73EF004D1314 /* PaymentViewController.h */,
+				976EEFD81B7F73EF004D1314 /* PaymentViewController.m */,
+				976EEFD91B7F73EF004D1314 /* PaymentViewController.xib */,
+				976EEFEE1B7F9D51004D1314 /* PaymentsSDK */,
+				976EEFE81B7F9D36004D1314 /* CCAvenuePayViewController */,
+			);
+			name = PaymentViewController;
+			sourceTree = "<group>";
+		};
+		976EEFE81B7F9D36004D1314 /* CCAvenuePayViewController */ = {
+			isa = PBXGroup;
+			children = (
+				976EEFE91B7F9D36004D1314 /* CCAvenuePayViewController.h */,
+				976EEFEA1B7F9D36004D1314 /* CCAvenuePayViewController.m */,
+				976EEFEB1B7F9D36004D1314 /* CCAvenuePayViewController.xib */,
+			);
+			path = CCAvenuePayViewController;
+			sourceTree = "<group>";
+		};
+		976EEFEE1B7F9D51004D1314 /* PaymentsSDK */ = {
+			isa = PBXGroup;
+			children = (
+				976EEFEF1B7F9D51004D1314 /* include */,
+				976EEFF51B7F9D51004D1314 /* libPaymentsSDK.a */,
+			);
+			path = PaymentsSDK;
+			sourceTree = "<group>";
+		};
+		976EEFEF1B7F9D51004D1314 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				976EEFF01B7F9D51004D1314 /* PaymentsSDK.h */,
+				976EEFF11B7F9D51004D1314 /* PGMerchantConfiguration.h */,
+				976EEFF21B7F9D51004D1314 /* PGOrder.h */,
+				976EEFF31B7F9D51004D1314 /* PGServerEnvironment.h */,
+				976EEFF41B7F9D51004D1314 /* PGTransactionViewController.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		9781765E1B7D08DF0015212B /* SelectAddAddressViewController */ = {
+			isa = PBXGroup;
+			children = (
+				978176601B7D44300015212B /* AddressCell */,
+				978176591B7D08DC0015212B /* SelectAddAddressViewController.h */,
+				9781765A1B7D08DC0015212B /* SelectAddAddressViewController.m */,
+				9781765B1B7D08DC0015212B /* SelectAddAddressViewController.xib */,
+			);
+			name = SelectAddAddressViewController;
+			sourceTree = "<group>";
+		};
+		978176601B7D44300015212B /* AddressCell */ = {
+			isa = PBXGroup;
+			children = (
+				978176611B7D44300015212B /* AddressCell.h */,
+				978176621B7D44300015212B /* AddressCell.m */,
+				978176631B7D44300015212B /* AddressCell.xib */,
+			);
+			name = AddressCell;
+			path = SelectAddAddressViewController/AddressCell;
+			sourceTree = "<group>";
+		};
 		AC001DA91B6CB5CB00BDEFD2 /* ProductDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +486,7 @@
 		AC35F3EB1B2B2A350018013C = {
 			isa = PBXGroup;
 			children = (
+				976EEFF71B7FAC41004D1314 /* SystemConfiguration.framework */,
 				978176571B7D083A0015212B /* FacebookSDK.framework */,
 				AC35F3F61B2B2A350018013C /* Soie */,
 				AC35F4101B2B2A350018013C /* SoieTests */,
@@ -639,6 +748,8 @@
 				ACA812111B709B56007B8433 /* BillingAddressViewController.m */,
 				ACA812131B709B69007B8433 /* DileveryViewController.h */,
 				ACA812141B709B69007B8433 /* DileveryViewController.m */,
+				9781765E1B7D08DF0015212B /* SelectAddAddressViewController */,
+				976EEFDC1B7F73F2004D1314 /* PaymentViewController */,
 			);
 			name = "Cart and Checkout";
 			sourceTree = "<group>";
@@ -737,6 +848,7 @@
 				AC001DBF1B6CB5CB00BDEFD2 /* ruler copy.png in Resources */,
 				AC001DBE1B6CB5CB00BDEFD2 /* like copy.png in Resources */,
 				AC001DBA1B6CB5CB00BDEFD2 /* action bar copy.png in Resources */,
+				976EEFE01B7F7A6F004D1314 /* RadioButton.png in Resources */,
 				AC35F4031B2B2A350018013C /* Main.storyboard in Resources */,
 				AC001DBB1B6CB5CB00BDEFD2 /* cart copy.png in Resources */,
 				AC35F47B1B2B3BA60018013C /* menu@2x.png in Resources */,
@@ -753,18 +865,25 @@
 				AC001DD11B6CCF5500BDEFD2 /* unnamed.png in Resources */,
 				AC001DD81B6D256600BDEFD2 /* cart1.png in Resources */,
 				AC001DC31B6CB5CB00BDEFD2 /* like.png in Resources */,
+				976EEFED1B7F9D36004D1314 /* CCAvenuePayViewController.xib in Resources */,
 				AC35F4051B2B2A350018013C /* Images.xcassets in Resources */,
 				AC001DC71B6CCF1A00BDEFD2 /* iosScreen720.png in Resources */,
 				AC001DC11B6CB5CB00BDEFD2 /* cart.png in Resources */,
 				AC001DD21B6CCF5500BDEFD2 /* Sign In ios.png in Resources */,
+				976EEFDB1B7F73EF004D1314 /* PaymentViewController.xib in Resources */,
 				AC001DC21B6CB5CB00BDEFD2 /* explore.png in Resources */,
+				976EEFE71B7F940C004D1314 /* NonSelectedRadio.png in Resources */,
 				AC001DCF1B6CCF5500BDEFD2 /* unnamed-3.png in Resources */,
 				AC001DCE1B6CCF5500BDEFD2 /* unnamed-4.png in Resources */,
+				976EEFE51B7F940C004D1314 /* CheckBox.png in Resources */,
 				AC001DB71B6CB5CB00BDEFD2 /* iosScreen750.png in Resources */,
 				AC001DDF1B6F503100BDEFD2 /* Checkmark@2x.png in Resources */,
+				976EEFE61B7F940C004D1314 /* NonSelectedCheckBox.png in Resources */,
 				ACCE87B01B63905100D637D0 /* camera.png in Resources */,
 				AC001DBC1B6CB5CB00BDEFD2 /* dotdisselected copy.png in Resources */,
 				AC001DBD1B6CB5CB00BDEFD2 /* dotselected copy.png in Resources */,
+				978176651B7D44300015212B /* AddressCell.xib in Resources */,
+				9781765D1B7D08DC0015212B /* SelectAddAddressViewController.xib in Resources */,
 				AC35F4791B2B3BA60018013C /* inrvu_bg.png in Resources */,
 				AC001DB81B6CB5CB00BDEFD2 /* iosScreen7502.png in Resources */,
 			);
@@ -790,6 +909,7 @@
 				AC35F4641B2B32F30018013C /* AppNavigationController.m in Sources */,
 				AC35F46D1B2B34310018013C /* LoginViewController.m in Sources */,
 				AC12F2F31B7B9A5E00300AAE /* XLBarPagerTabStripViewController.m in Sources */,
+				9781765C1B7D08DC0015212B /* SelectAddAddressViewController.m in Sources */,
 				ACCE87B31B63953F00D637D0 /* AddressListViewController.m in Sources */,
 				AC12F2F71B7B9A5E00300AAE /* XLTwitterPagerTabStripViewController.m in Sources */,
 				ACCE87A81B63873500D637D0 /* MyAccountViewController.m in Sources */,
@@ -826,7 +946,9 @@
 				AC35F45E1B2B32F30018013C /* HTHorizontalSelectionListScrollView.m in Sources */,
 				AC001DE21B6F863F00BDEFD2 /* CategoryViewController.m in Sources */,
 				AC35F45D1B2B32F30018013C /* HTHorizontalSelectionList.m in Sources */,
+				976EEFDA1B7F73EF004D1314 /* PaymentViewController.m in Sources */,
 				ACA812151B709B69007B8433 /* DileveryViewController.m in Sources */,
+				978176641B7D44300015212B /* AddressCell.m in Sources */,
 				AC35F4811B2C23DB0018013C /* HomeViewController.m in Sources */,
 				AC35F3FD1B2B2A350018013C /* AppDelegate.m in Sources */,
 				AC12F31A1B7E068500300AAE /* WishlistViewController.m in Sources */,
@@ -838,6 +960,7 @@
 				AC35F4561B2B32F30018013C /* AFPropertyListRequestOperation.m in Sources */,
 				AC35F4621B2B32F30018013C /* SWRevealViewController.m in Sources */,
 				AC0CF21E1B4E09BE00D0980B /* CartObject.m in Sources */,
+				976EEFEC1B7F9D36004D1314 /* CCAvenuePayViewController.m in Sources */,
 				AC35F4551B2B32F30018013C /* AFNetworkActivityIndicatorManager.m in Sources */,
 				AC12F2DC1B7B972B00300AAE /* DashboardViewController.m in Sources */,
 				ACCE87AE1B6387F600D637D0 /* EditPersonalInfoViewController.m in Sources */,
@@ -974,6 +1097,10 @@
 				INFOPLIST_FILE = Soie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Soie/PaymentsSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -991,6 +1118,10 @@
 				INFOPLIST_FILE = Soie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Soie/PaymentsSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

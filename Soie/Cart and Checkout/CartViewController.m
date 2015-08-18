@@ -12,6 +12,7 @@
 #import "Utilities.h"
 #import "UIImageView+AFNetworking.h"
 #import "AddressListViewController.h"
+#import "SelectAddAddressViewController.h"
 
 @implementation CartViewController {
     CartObject                      *cartInstance;
@@ -60,9 +61,13 @@
 }
 
 - (IBAction)proceedToCheckoutButtonClicked:(id)sender {
-    AddressListViewController *addressListView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressListView"];
-    addressListView.addressType = @"paymentaddress";
-    [self.navigationController pushViewController:addressListView animated:YES];
+//    AddressListViewController *addressListView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressListView"];
+//    addressListView.addressType = @"paymentaddress";
+//    [self.navigationController pushViewController:addressListView animated:YES];
+    
+    SelectAddAddressViewController *obj = [[SelectAddAddressViewController alloc] initWithNibName:@"SelectAddAddressViewController" bundle:nil];
+    [self.navigationController pushViewController:obj animated:YES];
+    obj = nil;
 }
 
 //#pragma mark Tableview Delegates
