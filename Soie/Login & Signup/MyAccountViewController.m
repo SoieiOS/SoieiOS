@@ -33,6 +33,12 @@
     
     [self setUpPickerViewController];
     [self getUserInformation];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+    self.navigationItem.rightBarButtonItem = cancelButton;
+}
+
+- (void)cancelButtonClicked {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setUpPickerViewController {
@@ -77,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,6 +122,14 @@
             cell.titleLabel.text = @"My Addresses";
             cell.subTitleLabel.text = @"";
         }
+        else if (indexPath.row == 6) {
+            cell.titleLabel.text = @"My Orders";
+            cell.subTitleLabel.text = @"";
+        }
+        else if (indexPath.row == 7) {
+            cell.titleLabel.text = @"Logout";
+            cell.subTitleLabel.text = @"";
+        }
     }
     
     return cell;
@@ -134,6 +148,17 @@
     }
     if (indexPath.row == 5) {
         NAVIGATE_TO_VIEW(addressView);
+        return;
+    }
+    if (indexPath.row == 6) {
+//        NAVIGATE_TO_VIEW(addressView);
+        return;
+    }
+    if (indexPath.row == 7) {
+        NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
+        [userDefaults1 setBool:NO forKey:@"isloggedin"];
+        [userDefaults1 synchronize];
+        [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
     if (indexPath.row == 4) {

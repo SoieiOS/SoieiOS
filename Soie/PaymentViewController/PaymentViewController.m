@@ -39,17 +39,17 @@
     if (self.useCouponCodeButton.selected) {
         self.couponView.hidden = YES;
         if (self.couponView.frame.origin.y < self.view.frame.size.height-64) {
-            self.confirmView.frame = CGRectMake(0, self.view.frame.size.height-64, 320, 64);
+            self.confirmView.frame = CGRectMake(0, self.view.frame.size.height-64, self.view.frame.size.width, 64);
         }
         else {
-            self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y, 320, 64);
+            self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y, self.view.frame.size.width, 64);
         }
     }
     else {
         self.couponView.hidden = NO;
-        self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y+self.couponView.frame.size.height+10, 320, 64);
+        self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y+self.couponView.frame.size.height+10, self.view.frame.size.width, 64);
     }
-    self.bgScrollView.contentSize = CGSizeMake(320, self.confirmView.frame.origin.y+64);
+    self.bgScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.confirmView.frame.origin.y+64);
     self.useCouponCodeButton.selected = !self.useCouponCodeButton.selected;
 }
 
@@ -199,11 +199,11 @@
                 yCord += 35;
             }
             
-            self.paymentTypeView.frame = CGRectMake(8, 27, 304, yCord);
-            self.paymentMethodView.frame = CGRectMake(0, 240, 320, yCord+33);
+            self.paymentTypeView.frame = CGRectMake(8, 27, self.view.frame.size.width-16, yCord);
+            self.paymentMethodView.frame = CGRectMake(0, 240, self.view.frame.size.width, yCord+33);
 
             self.useCouponCodeButton.frame = CGRectMake(8, self.paymentMethodView.frame.origin.y+self.paymentMethodView.frame.size.height+15, 160, 30);
-            self.couponView.frame = CGRectMake(8, self.useCouponCodeButton.frame.origin.y+self.useCouponCodeButton.frame.size.height+8, 304, 128);
+            self.couponView.frame = CGRectMake(8, self.useCouponCodeButton.frame.origin.y+self.useCouponCodeButton.frame.size.height+8, self.view.frame.size.width-16, 128);
             
             self.useCouponCodeButton.selected = YES;
             [self useCouponCodeButtonAction:self.useCouponCodeButton];
@@ -291,7 +291,7 @@
         
         if (success) {
             [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@",jsonDict[@"order_id"]]];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
@@ -367,7 +367,8 @@
     DEBUGLOG(@"ViewController::didSucceedTransactionresponse= %@", [response description]);
     [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@", response[@"ORDERID"]]];
 
-    [self removeController:controller];
+//    [self removeController:controller];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didFailTransaction:(PGTransactionViewController *)controller error:(NSError *)error response:(NSDictionary *)response

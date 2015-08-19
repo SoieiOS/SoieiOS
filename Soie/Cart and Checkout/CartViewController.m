@@ -61,13 +61,14 @@
 }
 
 - (IBAction)proceedToCheckoutButtonClicked:(id)sender {
-//    AddressListViewController *addressListView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressListView"];
+    SelectAddAddressViewController *selectAddAddressView = [self.storyboard instantiateViewControllerWithIdentifier:@"selectAddAddressView"];
 //    addressListView.addressType = @"paymentaddress";
-//    [self.navigationController pushViewController:addressListView animated:YES];
+    [self.navigationController pushViewController:selectAddAddressView animated:YES];
     
-    SelectAddAddressViewController *obj = [[SelectAddAddressViewController alloc] initWithNibName:@"SelectAddAddressViewController" bundle:nil];
-    [self.navigationController pushViewController:obj animated:YES];
-    obj = nil;
+//    SelectAddAddressViewController *obj = [[SelectAddAddressViewController alloc] initWithNibName:@"SelectAddAddressViewController" bundle:nil];
+//    [self.navigationController pushViewController:obj animated:YES];
+//    obj = nil;
+    
 }
 
 //#pragma mark Tableview Delegates

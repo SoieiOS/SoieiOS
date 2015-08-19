@@ -7,9 +7,10 @@
 //
 
 #import "SelectAddAddressViewController.h"
-#import "AddressCell.h"
+//#import "AddressCell.h"
 #import "APIHandler.h"
 #import "PaymentViewController.h"
+#import "CustomTableViewCell.h"
 
 #define HEADER_TITLE_SHIPPING @"Delivery Details"
 #define HEADER_TITLE_BILLING @"Billing Details"
@@ -23,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = HEADER_TITLE_SHIPPING;
+    self.title = HEADER_TITLE_SHIPPING;
     [self getAddressListFromServer];
 }
 
@@ -94,54 +95,59 @@
 
     float height = [self calculateTextHeight:[self formattedAddress:obj] maxWidth:284 fontName:[UIFont fontWithName:@"Times New Roman" size:16.0]]+10;
 
-    return height+54;
+    return height+64;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *CellIdentifier = [NSString stringWithFormat:@"AddressCell-%ld",(long)indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    AddressCell *itemCell = nil;
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.backgroundColor = [UIColor clearColor];
-        
-        itemCell = [[AddressCell alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
-        [cell.contentView addSubview:itemCell];
-        itemCell.tag = 101;
-    }
-    
-    itemCell = (AddressCell *)[cell.contentView viewWithTag:101];
-    [itemCell.addressButton removeTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
-    [itemCell.addressButton addTarget:self action:@selector(addressButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    itemCell.addressButton.tag = indexPath.row;
+    CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"addressCell"];
     
     NSDictionary *obj = [self.addressArray objectAtIndex:indexPath.row];
     
     NSString *addressString = [self formattedAddress:obj];
     
-    float height = [self calculateTextHeight:addressString maxWidth:284 fontName:[UIFont fontWithName:@"Times New Roman" size:16.0]]+10;
-    itemCell.addressLabel.text = addressString;
-  
-    CGRect frame = itemCell.bgView.frame;
-    frame.size.height = height+16;
-    itemCell.bgView.frame = frame;
+    cell.addressButton.tag = indexPath.row;
+    cell.addressLabel.text = addressString;
+//    NSString *CellIdentifier = [NSString stringWithFormat:@"AddressCell-%ld",(long)indexPath.row];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    AddressCell *itemCell = nil;
+//    
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.accessoryType = UITableViewCellAccessoryNone;
+//        cell.backgroundColor = [UIColor clearColor];
+//        
+//        itemCell = [[AddressCell alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
+//        [cell.contentView addSubview:itemCell];
+//        itemCell.tag = 101;
+//    }
+//    
+//    itemCell = (AddressCell *)[cell.contentView viewWithTag:101];
+//    [itemCell.addressButton removeTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+//    [itemCell.addressButton addTarget:self action:@selector(addressButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    itemCell.addressButton.tag = indexPath.row;
+//    
     
-    frame = itemCell.addressLabel.frame;
-    frame.size.height = height;
-    itemCell.addressLabel.frame = frame;
-
-    frame = itemCell.addressButton.frame;
-    frame.origin.y = itemCell.bgView.frame.size.height+itemCell.bgView.frame.origin.y;
-    itemCell.addressButton.frame = frame;
-    
-    frame = itemCell.frame;
-    frame.size.height = itemCell.addressButton.frame.size.height+itemCell.addressButton.frame.origin.y+16;
-    itemCell.frame = frame;
+//
+//    float height = [self calculateTextHeight:addressString maxWidth:284 fontName:[UIFont fontWithName:@"Times New Roman" size:16.0]]+10;
+//    itemCell.addressLabel.text = addressString;
+//  
+//    CGRect frame = itemCell.bgView.frame;
+//    frame.size.height = height+16;
+//    itemCell.bgView.frame = frame;
+//    
+//    frame = itemCell.addressLabel.frame;
+//    frame.size.height = height;
+//    itemCell.addressLabel.frame = frame;
+//
+//    frame = itemCell.addressButton.frame;
+//    frame.origin.y = itemCell.bgView.frame.size.height+itemCell.bgView.frame.origin.y;
+//    itemCell.addressButton.frame = frame;
+//    
+//    frame = itemCell.frame;
+//    frame.size.height = itemCell.addressButton.frame.size.height+itemCell.addressButton.frame.origin.y+16;
+//    itemCell.frame = frame;
     
     return cell;
 }
@@ -150,8 +156,7 @@
  
 }
 
-- (void)addressButtonAction:(id)sender {
-    UIButton *btn = (UIButton *)sender;
+- (IBAction)addressButtonAction:(UIButton *)btn {
     NSDictionary *obj = [self.addressArray objectAtIndex:btn.tag];
     
     if ([self.navigationItem.title isEqualToString:HEADER_TITLE_SHIPPING]) {
@@ -190,7 +195,7 @@
         [ActivityIndicator stopAnimatingForView:self.view];
         
         if (success) {
-            self.navigationItem.title = HEADER_TITLE_BILLING;
+            self.title = HEADER_TITLE_BILLING;
         }
     }];
 }

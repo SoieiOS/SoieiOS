@@ -113,6 +113,7 @@
                 NSArray *arr1 = [orderParams componentsSeparatedByString:@"&"];
 
                 [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@", [arr1 firstObject]]];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
             else
             {

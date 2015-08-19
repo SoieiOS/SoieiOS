@@ -28,4 +28,8 @@
 @property (nonatomic, strong) IBOutlet  UIPageControl   *pageControl;
 @property (nonatomic, strong) IBOutlet  UIStepper       *quantityStepper;
 
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIButton *addressButton;
+
 @end

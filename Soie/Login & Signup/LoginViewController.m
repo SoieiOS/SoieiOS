@@ -126,7 +126,8 @@
             NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
             [userDefaults1 setBool:YES forKey:@"isloggedin"];
             [userDefaults1 synchronize];
-            NAVIGATE_TO_VIEW(myAccountView);
+//            NAVIGATE_TO_VIEW(myAccountViews);
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }

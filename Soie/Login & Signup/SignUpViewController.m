@@ -89,6 +89,10 @@
             NSLog(@"Response : %@",jsonDict);
             [UserInformation saveUserInformation:[[NSDictionary alloc] initWithObjectsAndKeys:postDictionary,@"user", nil]];
             NSLog(@"%@",[UserInformation getUserInformation]);
+            NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
+            [userDefaults1 setBool:YES forKey:@"isloggedin"];
+            [userDefaults1 synchronize];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }

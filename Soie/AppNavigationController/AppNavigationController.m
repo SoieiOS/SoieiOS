@@ -24,7 +24,7 @@
     NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];
     self.navigationBar.translucent = NO;
     [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
-    [self checkFirstController];
+//    [self checkFirstController];
 }
 
 - (void)setTransparentNavigationBar {
