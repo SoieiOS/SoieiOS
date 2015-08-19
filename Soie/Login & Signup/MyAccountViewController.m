@@ -152,7 +152,7 @@
         return;
     }
     if (indexPath.row == 6) {
-//        NAVIGATE_TO_VIEW(addressView);
+        NAVIGATE_TO_VIEW(myOrdersView);
         return;
     }
     if (indexPath.row == 7) {

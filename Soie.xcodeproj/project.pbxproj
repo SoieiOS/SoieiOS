@@ -64,6 +64,7 @@
 		AC12F2FE1B7BA13000300AAE /* ChildCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F2FD1B7BA13000300AAE /* ChildCategoryViewController.m */; };
 		AC12F31A1B7E068500300AAE /* WishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F3191B7E068500300AAE /* WishlistViewController.m */; };
 		AC12F31C1B7E0C9B00300AAE /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = AC12F31B1B7E0C9B00300AAE /* trash.png */; };
+		AC12F3A21B84F0B100300AAE /* MyOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC12F3A11B84F0B100300AAE /* MyOrdersViewController.m */; };
 		AC35F3FA1B2B2A350018013C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F3F91B2B2A350018013C /* main.m */; };
 		AC35F3FD1B2B2A350018013C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC35F3FC1B2B2A350018013C /* AppDelegate.m */; };
 		AC35F4031B2B2A350018013C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC35F4011B2B2A350018013C /* Main.storyboard */; };
@@ -212,6 +213,8 @@
 		AC12F3181B7E068500300AAE /* WishlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishlistViewController.h; sourceTree = "<group>"; };
 		AC12F3191B7E068500300AAE /* WishlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishlistViewController.m; sourceTree = "<group>"; };
 		AC12F31B1B7E0C9B00300AAE /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
+		AC12F3A01B84F0B100300AAE /* MyOrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyOrdersViewController.h; path = "Login & Signup/MyOrdersViewController.h"; sourceTree = "<group>"; };
+		AC12F3A11B84F0B100300AAE /* MyOrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyOrdersViewController.m; path = "Login & Signup/MyOrdersViewController.m"; sourceTree = "<group>"; };
 		AC35F3F41B2B2A350018013C /* Soie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC35F3F81B2B2A350018013C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC35F3F91B2B2A350018013C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				ACCE87A91B6387F500D637D0 /* ChangePasswordViewController.m */,
 				ACCE87B11B63953F00D637D0 /* AddressListViewController.h */,
 				ACCE87B21B63953F00D637D0 /* AddressListViewController.m */,
+				AC12F3A01B84F0B100300AAE /* MyOrdersViewController.h */,
+				AC12F3A11B84F0B100300AAE /* MyOrdersViewController.m */,
 			);
 			name = "Login & Signup";
 			sourceTree = "<group>";
@@ -918,6 +923,7 @@
 				AC35F4591B2B32F30018013C /* UIImageView+AFNetworking.m in Sources */,
 				AC35F4531B2B32F30018013C /* AFImageRequestOperation.m in Sources */,
 				AC35F4521B2B32F30018013C /* AFHTTPRequestOperation.m in Sources */,
+				AC12F3A21B84F0B100300AAE /* MyOrdersViewController.m in Sources */,
 				AC35F45C1B2B32F30018013C /* DateHandler.m in Sources */,
 				AC35F4511B2B32F30018013C /* AFHTTPClient.m in Sources */,
 				AC35F58E1B318C610018013C /* CustomCollectionViewCell.m in Sources */,

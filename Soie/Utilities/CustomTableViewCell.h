@@ -13,10 +13,14 @@
 @property (nonatomic, strong) IBOutlet  UILabel         *titleLabel;
 @property (nonatomic, strong) IBOutlet  UILabel         *subTitleLabel;
 @property (nonatomic, strong) IBOutlet  UILabel         *statusLabel;
+@property (nonatomic, strong) IBOutlet  UILabel         *orderIdLabel;
+@property (nonatomic, strong) IBOutlet  UILabel         *dateLabel;
+@property (nonatomic, strong) IBOutlet  UILabel         *priceLabel;
+@property (nonatomic, strong) IBOutlet  UILabel         *numberLabel;
+
 @property (nonatomic, strong) IBOutlet  UIButton        *buyNowButton;
 @property (nonatomic, strong) IBOutlet  UIButton        *addToCartButton;
 @property (nonatomic, strong) IBOutlet  UIButton        *accessoryButton;
-@property (nonatomic, strong) IBOutlet  UILabel         *numberLabel;
 @property (nonatomic, strong) IBOutlet  UIImageView     *iconImageView;
 @property (nonatomic, strong) IBOutlet  UIImageView     *backgroundImageview;
 @property (nonatomic, strong) IBOutlet  UIImageView     *selectionImageview;
