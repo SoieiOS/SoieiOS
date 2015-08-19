@@ -13,6 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "AddressListViewController.h"
 #import "SelectAddAddressViewController.h"
+#import "APIHandler.h"
 
 @implementation CartViewController {
     CartObject                      *cartInstance;
@@ -25,8 +26,25 @@
     cartInstance = [CartObject getInstance];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
     self.navigationItem.rightBarButtonItem = cancelButton;
-    
+    [self getCartItems];
     [self getTotalPrice];
+}
+
+- (void)getCartItems {
+    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/cart",API_BASE_URL];
+    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+        if (success) {
+            [ActivityIndicator stopAnimatingForView:self.view];
+
+            NSLog(@"Response : %@",jsonDict);
+
+            [cartInstance setListOfCartItems:[[[jsonDict objectForKey:@"data"] objectForKey:@"products"] mutableCopy]];
+            [cartCollectionView reloadData];
+            [self getTotalPrice];
+        }
+    }];
 }
 
 - (void)cancelButtonClicked {
@@ -41,7 +59,9 @@
     float totalPrice = 0;
     for (int i = 0; i < cartInstance.listOfCartItems.count; i++) {
         NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:i];
-        totalPrice = totalPrice + [[productInfo objectForKey:@"price"] floatValue];
+        NSString *price = [[productInfo objectForKey:@"price"] stringByReplacingOccurrencesOfString:@"Rs." withString:@""];
+        price = [price stringByReplacingOccurrencesOfString:@"," withString:@""];
+        totalPrice = totalPrice + [price floatValue];
     }
     priceLabel.text = [NSString stringWithFormat:@"%0.1f",totalPrice];
 }
@@ -62,13 +82,30 @@
 
 - (IBAction)proceedToCheckoutButtonClicked:(id)sender {
     SelectAddAddressViewController *selectAddAddressView = [self.storyboard instantiateViewControllerWithIdentifier:@"selectAddAddressView"];
-//    addressListView.addressType = @"paymentaddress";
     [self.navigationController pushViewController:selectAddAddressView animated:YES];
     
 //    SelectAddAddressViewController *obj = [[SelectAddAddressViewController alloc] initWithNibName:@"SelectAddAddressViewController" bundle:nil];
 //    [self.navigationController pushViewController:obj animated:YES];
 //    obj = nil;
     
+}
+
+- (IBAction)deleteProductFromCart:(id)sender {
+    [ActivityIndicator startAnimatingWithText:@"Deleting" forView:self.view];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/cart",API_BASE_URL];
+    NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:[sender tag]];
+    [APIHandler getResponseFor:[[NSDictionary alloc] initWithObjectsAndKeys:[productInfo objectForKey:@"key"],@"key", nil] url:[NSURL URLWithString:urlString] requestType:@"DELETE" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+        [ActivityIndicator stopAnimatingForView:self.view];
+
+        if (success) {
+            NSLog(@"Response : %@",jsonDict);
+            
+            [cartInstance.listOfCartItems removeObjectAtIndex:[sender tag]];
+            [cartCollectionView reloadData];
+            [self getTotalPrice];
+        }
+    }];
 }
 
 //#pragma mark Tableview Delegates
@@ -104,6 +141,7 @@
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //}
 
+
 #pragma mark C0llectionview Delegate-------------
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -120,12 +158,12 @@
     if (productInfo.allKeys.count > 0) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
         cell.priceLabel.text = [productInfo objectForKey:@"price"];
-        cell.titleLabel.text = [productInfo objectForKey:@"name"];
-        NSString *imageUrl = [productInfo objectForKey:@"image"];
+        NSString *imageUrl = [productInfo objectForKey:@"thumb"];
         [cell.thumbnailImageView setImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
             [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         }
+        cell.removeButton.tag = indexPath.row;
     }
     return cell;
 }

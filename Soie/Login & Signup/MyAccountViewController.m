@@ -11,6 +11,7 @@
 #import "CustomTableViewCell.h"
 #import "UserInformation.h"
 #import "Constants.h"
+#import "APIHandler.h"
 
 @interface MyAccountViewController () <UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UserInformationUpdated> {
     
@@ -147,7 +148,7 @@
         return;
     }
     if (indexPath.row == 5) {
-        NAVIGATE_TO_VIEW(addressView);
+        NAVIGATE_TO_VIEW(addressListView);
         return;
     }
     if (indexPath.row == 6) {
@@ -155,10 +156,21 @@
         return;
     }
     if (indexPath.row == 7) {
-        NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
-        [userDefaults1 setBool:NO forKey:@"isloggedin"];
-        [userDefaults1 synchronize];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        NSString *urlString = [NSString stringWithFormat:@"%@logout",API_BASE_URL];
+        
+        [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+            [ActivityIndicator stopAnimatingForView:self.view];
+            
+            if (success) {
+                NSLog(@"Response : %@",jsonDict);
+                //            NAVIGATE_TO_VIEW(myAccountViews);
+                NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
+                [userDefaults1 setBool:NO forKey:@"isloggedin"];
+                [userDefaults1 synchronize];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+        
         return;
     }
     if (indexPath.row == 4) {

@@ -13,5 +13,5 @@
 
 @property (nonatomic) BOOL      isPaymentAddress;
 @property (nonatomic, strong) NSString *addressType;
-
+@property (nonatomic, strong) NSDictionary  *addressInfo;
 @end

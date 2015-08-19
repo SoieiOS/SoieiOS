@@ -11,9 +11,10 @@
 #import "CustomTableViewCell.h"
 #import "UserInformation.h"
 #import "APIHandler.h"
+#import "Utilities.h"
 
-@interface AddressListViewController () <UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate> {
-    
+@interface AddressListViewController () <UITableViewDataSource, UITableViewDelegate> {
+    BOOL                                reloadAddress;
     NSMutableDictionary                 *userInformation;
     NSMutableArray                      *listOfAddresses;
 }
@@ -27,7 +28,8 @@
     
     listOfAddresses = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
-    
+    reloadAddress = YES;
+
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonClicked)];
     self.navigationItem.rightBarButtonItem = addButton;
     [self getListOfAddresses];
@@ -39,6 +41,7 @@
 }
 
 - (void)addButtonClicked {
+    reloadAddress = YES;
     AddressViewController *addressView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressView"];
     addressView.addressType = _addressType;
     [self.navigationController pushViewController:addressView animated:YES];
@@ -46,13 +49,14 @@
 
 - (void)getListOfAddresses {
     [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",API_BASE_URL,_addressType];
+    NSString *urlString = [NSString stringWithFormat:@"%@account/address",API_BASE_URL];
     [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
         [ActivityIndicator stopAnimatingForView:self.view];
         if (success) {
             NSLog(@"Response : %@",jsonDict);
-//            listOfAddresses = [[[jsonDict objectForKey:@"data"] objectForKey:@"addresses"] mutableCopy];
-//            [self.tableView reloadData];
+            listOfAddresses = [[[jsonDict objectForKey:@"data"] objectForKey:@"addresses"] mutableCopy];
+            [self.tableView reloadData];
+            reloadAddress = NO;
         }
     }];
 }
@@ -80,21 +84,29 @@
     NSString *cellIdentifier = @"addressCell";
     CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-//    NSDictionary *addressInfo = [listOfAddresses objectAtIndex:indexPath.row];
-//    NSDictionary *addressInfo1 = [addressInfo objectForKey:[addressInfo objectForKey:@"address_id"]];
-//    cell.titleLabel.text = [addressInfo1 objectForKey:@"firstname"];
-//    cell.subTitleLabel.text = [userInformation objectForKey:@"firstname"];
+    NSDictionary *addressInfo = [listOfAddresses objectAtIndex:indexPath.row];
+    
+    NSString *addressString = [Utilities formattedAddress:addressInfo];
+    
+    cell.addressLabel.text = addressString;
     
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 54;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *obj = [listOfAddresses objectAtIndex:indexPath.row];
+    
+    float height = [Utilities heigthWithWidth:self.view.frame.size.width-16 andFont:[UIFont fontWithName:@"Times New Roman" size:16.0] string:[Utilities formattedAddress:obj]];
+    return height+20;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    reloadAddress = YES;
+    AddressViewController *addressView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressView"];
+    addressView.addressInfo = [listOfAddresses objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:addressView animated:YES];
 }
 
 @end

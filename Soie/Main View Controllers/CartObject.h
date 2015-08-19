@@ -14,6 +14,10 @@
 @property (nonatomic,strong) NSMutableArray *listOfCartItems;
 @property (nonatomic,strong) NSMutableArray *listOfBanners;
 
+@property (nonatomic) BOOL cartLoaded;
+
 +(CartObject*)getInstance;
 +(void)clearCartModel;
++(void)getCartItems;
+
 @end

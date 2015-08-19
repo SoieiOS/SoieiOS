@@ -7,6 +7,7 @@
 //
 
 #import "CartObject.h"
+#import "APIHandler.h"
 
 @implementation CartObject
 
@@ -22,6 +23,7 @@ static CartObject *cartInstance =nil;
             [cartInstance setListOfCartItems:[emptyArray mutableCopy]];
             [cartInstance setListOfBanners:[emptyArray mutableCopy]];
             [cartInstance setSessionId:@""];
+//            /cart
         }
     }
     return cartInstance;
@@ -29,5 +31,19 @@ static CartObject *cartInstance =nil;
 
 +(void)clearCartModel {
     cartInstance = nil;
+}
+
++(void)getCartItems {
+    if (cartInstance.cartLoaded) {
+        return;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"%@/cart",API_BASE_URL];
+    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+        if (success) {
+            NSLog(@"Response : %@",jsonDict);
+            [cartInstance setCartLoaded:YES];
+            [cartInstance setListOfCartItems:[[[jsonDict objectForKey:@"data"] objectForKey:@"products"] mutableCopy]];
+        }
+    }];
 }
 @end

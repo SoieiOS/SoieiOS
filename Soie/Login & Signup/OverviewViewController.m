@@ -23,7 +23,7 @@
     [Utilities makeBorderForObject:loginButton ofSize:2 color:[UIColor whiteColor]];
     // Do any additional setup after loading the view.
     [self addBackgroundView];
-    
+        
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
     self.navigationItem.rightBarButtonItem = cancelButton;
 }

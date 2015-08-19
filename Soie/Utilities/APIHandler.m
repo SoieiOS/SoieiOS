@@ -43,13 +43,15 @@
     [request setHTTPMethod:requestType];
     [request setValue:@"10571113" forHTTPHeaderField:@"X-Oc-Merchant-Id"];
     [request setValue:@"en" forHTTPHeaderField:@"X-Oc-Merchant-Language"];
+    CartObject *cartInstance = [CartObject getInstance];
+    if (cartInstance.sessionId.length > 0) {
+        [request setValue:cartInstance.sessionId forHTTPHeaderField:@"X-Oc-Session"];
+    }
     if (dictionary !=nil && ![dictionary isEqual:[NSNull null]]) {
         NSData *postData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
         NSString *responseString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
         NSLog(@"Json data  : %@", responseString);
         [request setHTTPMethod:@"POST"];
-        CartObject *cartInstance = [CartObject getInstance];
-        [request setValue:cartInstance.sessionId forHTTPHeaderField:@"X-Oc-Session"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:postData];
     }

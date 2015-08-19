@@ -7,15 +7,18 @@
 //
 
 #import "SelectAddAddressViewController.h"
-//#import "AddressCell.h"
 #import "APIHandler.h"
 #import "PaymentViewController.h"
 #import "CustomTableViewCell.h"
+#import "AddressViewController.h"
+#import "Utilities.h"
 
 #define HEADER_TITLE_SHIPPING @"Delivery Details"
 #define HEADER_TITLE_BILLING @"Billing Details"
 
-@interface SelectAddAddressViewController ()
+@interface SelectAddAddressViewController () {
+    BOOL        reloadAddress;
+}
 
 @end
 
@@ -23,9 +26,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    reloadAddress = YES;
     // Do any additional setup after loading the view from its nib.
     self.title = HEADER_TITLE_SHIPPING;
-    [self getAddressListFromServer];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if (reloadAddress) {
+        [self getAddressListFromServer];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,39 +52,9 @@
         if (success) {
             self.addressArray = [[NSMutableArray alloc] initWithArray:[[jsonDict objectForKey:@"data"] objectForKey:@"addresses"]];
             [self.addressTable reloadData];
+            reloadAddress = NO;
         }
     }];
-}
-
-- (NSString *)formattedAddress:(NSDictionary *)obj {
-    NSString *addressString = @"";
-    
-    if ([[obj objectForKey:@"firstname"] length] > 0) {
-        addressString = [obj objectForKey:@"firstname"];
-    }
-    if ([[obj objectForKey:@"lastname"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@" %@",[obj objectForKey:@"lastname"]];
-    }
-    if ([[obj objectForKey:@"address_1"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"address_1"]];
-    }
-    if ([[obj objectForKey:@"address_2"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"address_2"]];
-    }
-    if ([[obj objectForKey:@"city"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"city"]];
-    }
-    if ([[obj objectForKey:@"postcode"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@" %@",[obj objectForKey:@"postcode"]];
-    }
-    if ([[obj objectForKey:@"zone"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"zone"]];
-    }
-    if ([[obj objectForKey:@"country"] length] > 0) {
-        addressString = [addressString stringByAppendingFormat:@" %@",[obj objectForKey:@"country"]];
-    }
-
-    return addressString;
 }
 
 #pragma mark - UITableView Delegate/Datasource Methods
@@ -93,8 +72,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *obj = [self.addressArray objectAtIndex:indexPath.row];
 
-    float height = [self calculateTextHeight:[self formattedAddress:obj] maxWidth:284 fontName:[UIFont fontWithName:@"Times New Roman" size:16.0]]+10;
-
+    float height = [Utilities heigthWithWidth:self.view.frame.size.width-16 andFont:[UIFont fontWithName:@"Times New Roman" size:16.0] string:[Utilities formattedAddress:obj]];
     return height+64;
 }
 
@@ -104,56 +82,23 @@
     
     NSDictionary *obj = [self.addressArray objectAtIndex:indexPath.row];
     
-    NSString *addressString = [self formattedAddress:obj];
+    NSString *addressString = [Utilities formattedAddress:obj];
     
     cell.addressButton.tag = indexPath.row;
     cell.addressLabel.text = addressString;
-//    NSString *CellIdentifier = [NSString stringWithFormat:@"AddressCell-%ld",(long)indexPath.row];
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    AddressCell *itemCell = nil;
-//    
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.accessoryType = UITableViewCellAccessoryNone;
-//        cell.backgroundColor = [UIColor clearColor];
-//        
-//        itemCell = [[AddressCell alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
-//        [cell.contentView addSubview:itemCell];
-//        itemCell.tag = 101;
-//    }
-//    
-//    itemCell = (AddressCell *)[cell.contentView viewWithTag:101];
-//    [itemCell.addressButton removeTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
-//    [itemCell.addressButton addTarget:self action:@selector(addressButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//    itemCell.addressButton.tag = indexPath.row;
-//    
-    
-//
-//    float height = [self calculateTextHeight:addressString maxWidth:284 fontName:[UIFont fontWithName:@"Times New Roman" size:16.0]]+10;
-//    itemCell.addressLabel.text = addressString;
-//  
-//    CGRect frame = itemCell.bgView.frame;
-//    frame.size.height = height+16;
-//    itemCell.bgView.frame = frame;
-//    
-//    frame = itemCell.addressLabel.frame;
-//    frame.size.height = height;
-//    itemCell.addressLabel.frame = frame;
-//
-//    frame = itemCell.addressButton.frame;
-//    frame.origin.y = itemCell.bgView.frame.size.height+itemCell.bgView.frame.origin.y;
-//    itemCell.addressButton.frame = frame;
-//    
-//    frame = itemCell.frame;
-//    frame.size.height = itemCell.addressButton.frame.size.height+itemCell.addressButton.frame.origin.y+16;
-//    itemCell.frame = frame;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
  
+}
+
+- (IBAction)addButtonClicked:(UIButton *)btn {
+    reloadAddress = YES;
+    AddressViewController *addressView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressView"];
+//    addressView.addressType = _addressType;
+    [self.navigationController pushViewController:addressView animated:YES];
 }
 
 - (IBAction)addressButtonAction:(UIButton *)btn {
@@ -167,18 +112,6 @@
     }
 }
 
-- (CGFloat)calculateTextHeight:(NSString *)str maxWidth:(CGFloat)width fontName:(UIFont *)font {
-    CGFloat height = 0;
-    if ([str length] > 0) {
-        height = [str boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
-                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                attributes:@{
-                                             NSFontAttributeName : font
-                                             }
-                                   context:nil].size.height;
-    }
-    return height;
-}
 
 #pragma mark - Set Shipping Address To Order
 

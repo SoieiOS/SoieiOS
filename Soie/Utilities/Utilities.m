@@ -45,6 +45,37 @@
     [object setLeftViewMode:UITextFieldViewModeAlways];
 }
 
++ (NSString *)formattedAddress:(NSDictionary *)obj {
+    NSString *addressString = @"";
+    
+    if ([[obj objectForKey:@"firstname"] length] > 0) {
+        addressString = [obj objectForKey:@"firstname"];
+    }
+    if ([[obj objectForKey:@"lastname"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@" %@",[obj objectForKey:@"lastname"]];
+    }
+    if ([[obj objectForKey:@"address_1"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"address_1"]];
+    }
+    if ([[obj objectForKey:@"address_2"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"address_2"]];
+    }
+    if ([[obj objectForKey:@"city"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"city"]];
+    }
+    if ([[obj objectForKey:@"postcode"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@" %@",[obj objectForKey:@"postcode"]];
+    }
+    if ([[obj objectForKey:@"zone"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@"\n%@",[obj objectForKey:@"zone"]];
+    }
+    if ([[obj objectForKey:@"country"] length] > 0) {
+        addressString = [addressString stringByAppendingFormat:@" %@",[obj objectForKey:@"country"]];
+    }
+    
+    return addressString;
+}
+
 +(void)setTitleColorOfDatePicker:(UIPickerView *)picker {
     [picker setValue:[UIColor whiteColor] forKeyPath:@"textColor"];
     SEL selector = NSSelectorFromString( @"setHighlightsToday:" );

@@ -33,15 +33,15 @@
     self.isProgressiveIndicator = YES;
     self.isElasticIndicatorLimit = YES;
     // Do any additional setup after loading the view.
-    
-    CartObject *cartInstance = [CartObject getInstance];
     NSDictionary *userInfo = [UserInformation getUserInformation];
+    CartObject *cartInstance = [CartObject getInstance];
     
     if (!userInfo && !cartInstance.sessionId.length > 0) {
         [APIHandler getSessionId];
     }
     else {
         cartInstance.sessionId  = [[userInfo objectForKey:@"user"] objectForKey:@"session"];
+        [CartObject getCartItems];
     }
     
     self.title = @"";

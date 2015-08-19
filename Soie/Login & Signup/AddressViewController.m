@@ -37,6 +37,16 @@
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget: self action:@selector(hideKeyboard)];
     singleTap.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:singleTap];
+    
+    if (_addressInfo) {
+        tfFirstName.text = [_addressInfo objectForKey:@"firstname"];
+        tfLastName.text = [_addressInfo objectForKey:@"lastname"];
+        tfaddress1.text = [_addressInfo objectForKey:@"address_1"];
+        tfaddress2.text = [_addressInfo objectForKey:@"address_2"];
+        tfCity.text = [_addressInfo objectForKey:@"city"];
+        tfZip.text = [_addressInfo objectForKey:@"postcode"];
+        tfState.text = [_addressInfo objectForKey:@"zone"];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,33 +102,21 @@
                                     @"",@"tax_id",
                                     @"99",@"country_id",
                                     nil];
-//    {
-//        "address_1": "Kossuth Lajos út 88",
-//        "address_2": "test",
-//        "city": "Budapest",
-//        "company_id": "company",
-//        "company": "company",
-//        "country_id": "97",
-//        "firstname": "Test",
-//        "lastname": "User 2",
-//        "postcode": "1111",
-//        "tax_id": "",
-//        "zone_id": "1433"
-//    }
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",API_BASE_URL,_addressType];
+
+    NSString *urlString = [NSString stringWithFormat:@"%@account/address",API_BASE_URL];
+    NSString *requestType = @"POST";
     
-    [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+    if (_addressInfo) {
+        urlString = [NSString stringWithFormat:@"%@/%@",urlString,[_addressInfo objectForKey:@"address_id"]];
+        requestType = @"PUT";
+    }
+    
+    [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:requestType complettionBlock:^(BOOL success,NSDictionary *jsonDict){
         [ActivityIndicator stopAnimatingForView:self.view];
         
         if (success) {
             NSLog(@"Response : %@",jsonDict);
-//            [UserInformation saveUserInformation:[[NSDictionary alloc] initWithObjectsAndKeys:postDictionary,@"user", nil]];
-//            NSLog(@"%@",[UserInformation getUserInformation]);
-            if ([_addressType isEqualToString:@"paymentaddress"]) {
-                AddressListViewController *addressListView = [self.storyboard instantiateViewControllerWithIdentifier:@"addressListView"];
-                addressListView.addressType = @"shippingaddress";
-                [self.navigationController pushViewController:addressListView animated:YES];
-            }
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }
