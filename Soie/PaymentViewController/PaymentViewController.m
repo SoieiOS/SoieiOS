@@ -292,6 +292,7 @@
         if (success) {
             [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@",jsonDict[@"order_id"]]];
             [self dismissViewControllerAnimated:YES completion:nil];
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
         }
     }];
 }
@@ -368,6 +369,7 @@
     [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@", response[@"ORDERID"]]];
 
 //    [self removeController:controller];
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

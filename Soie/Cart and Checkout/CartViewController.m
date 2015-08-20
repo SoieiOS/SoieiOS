@@ -14,6 +14,7 @@
 #import "AddressListViewController.h"
 #import "SelectAddAddressViewController.h"
 #import "APIHandler.h"
+#import "AppNavigationController.h"
 
 @implementation CartViewController {
     CartObject                      *cartInstance;
@@ -35,14 +36,20 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/cart",API_BASE_URL];
     [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+        [ActivityIndicator stopAnimatingForView:self.view];
         if (success) {
-            [ActivityIndicator stopAnimatingForView:self.view];
 
             NSLog(@"Response : %@",jsonDict);
 
             [cartInstance setListOfCartItems:[[[jsonDict objectForKey:@"data"] objectForKey:@"products"] mutableCopy]];
             [cartCollectionView reloadData];
             [self getTotalPrice];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",cartInstance.listOfCartItems.count] forKey:@"cartItemCount"];
+        }
+        else if ([[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[jsonDict objectForKey:@"error"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alertView show];
         }
     }];
 }
@@ -81,6 +88,12 @@
 }
 
 - (IBAction)proceedToCheckoutButtonClicked:(id)sender {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults boolForKey:@"isloggedin"]) {
+        AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"]];
+        [self presentViewController:appNavigationController animated:YES completion:nil];
+        return;
+    }
     SelectAddAddressViewController *selectAddAddressView = [self.storyboard instantiateViewControllerWithIdentifier:@"selectAddAddressView"];
     [self.navigationController pushViewController:selectAddAddressView animated:YES];
     
@@ -95,52 +108,34 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@/cart",API_BASE_URL];
     NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:[sender tag]];
-    [APIHandler getResponseFor:[[NSDictionary alloc] initWithObjectsAndKeys:[productInfo objectForKey:@"key"],@"key", nil] url:[NSURL URLWithString:urlString] requestType:@"DELETE" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+    [APIHandler getResponseFor:[[NSDictionary alloc] initWithObjectsAndKeys:[productInfo objectForKey:@"key"],@"product_id", nil] url:[NSURL URLWithString:urlString] requestType:@"DELETE" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
         [ActivityIndicator stopAnimatingForView:self.view];
 
-        if (success) {
+        if (success || [[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
             NSLog(@"Response : %@",jsonDict);
             
             [cartInstance.listOfCartItems removeObjectAtIndex:[sender tag]];
             [cartCollectionView reloadData];
             [self getTotalPrice];
+            if ([[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
+//                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
+
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[jsonDict objectForKey:@"error"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alertView show];
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",cartInstance.listOfCartItems.count] forKey:@"cartItemCount"];
+
         }
     }];
 }
 
-//#pragma mark Tableview Delegates
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    // Return the number of sections.
-//    return 1;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return 1;//cartInstance.listOfCartItems.count;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    CustomTableViewCell *cell;
-//    cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"cartItemCell"];
-//    
-////    NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:indexPath.row];
-////    cell.titleLabel.text = [productInfo objectForKey:@"name"];
-//    cell.quantityStepper.tag = indexPath.row;
-//    
-//    return cell;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 170;
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//}
+#pragma mark alert view delegate -------------
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString:@""]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 #pragma mark C0llectionview Delegate-------------
 
@@ -153,15 +148,16 @@
     
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    [Utilities makeRoundCornerForObject:cell ofRadius:8];
+//    [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:indexPath.row];
     if (productInfo.allKeys.count > 0) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
         cell.priceLabel.text = [productInfo objectForKey:@"price"];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"Qty: %@",[productInfo objectForKey:@"quantity"]];
         NSString *imageUrl = [productInfo objectForKey:@"thumb"];
         [cell.thumbnailImageView setImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
-            [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+            [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
         }
         cell.removeButton.tag = indexPath.row;
     }
@@ -169,18 +165,23 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(228,259);
+    CGFloat width = self.view.frame.size.width - 10;
+    return CGSizeMake(width,80);
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 8;
+    return 5;
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 1;
+    return 5;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return CGSizeMake(0,5);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

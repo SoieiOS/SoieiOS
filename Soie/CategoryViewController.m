@@ -9,8 +9,12 @@
 #import "CategoryViewController.h"
 #import "CustomTableViewCell.h"
 #import "ProductsListViewController.h"
+#import "UserInformation.h"
+#import "BBBadgeBarButtonItem.h"
 
-@interface CategoryViewController ()
+@interface CategoryViewController () {
+    BBBadgeBarButtonItem *cartButton;
+}
 
 @end
 
@@ -29,6 +33,24 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    // Add your action to your button
+    [customButton addTarget:self action:@selector(cartButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    // Customize your button as you want, with an image if you have a pictogram to display for example
+    [customButton setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
+    
+    // Then create and add our custom BBBadgeBarButtonItem
+    cartButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
+    
+    self.navigationItem.rightBarButtonItem = cartButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    cartButton.badgeValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartItemCount"];
+}
+
+- (void)cartButtonClicked {
+    [UserInformation openCartView:self];
 }
 
 - (void)didReceiveMemoryWarning {

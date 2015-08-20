@@ -7,7 +7,9 @@
 //
 
 #import "UserInformation.h"
+#import "AppNavigationController.h"
 #import "APIHandler.h"
+#import "CartObject.h"
 
 @implementation UserInformation
 
@@ -47,8 +49,6 @@
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[[jsonDict objectForKey:@"data"] mutableCopy]];
             [userDefaults setObject:data forKey:@"kCategoryList"];
             [userDefaults synchronize];
-            
-            
         }
     }];
 }
@@ -102,6 +102,35 @@
         }
     }
     return isExists;
+}
+
+#pragma  cart view ---------
+
++ (void)openCartView:(id)sender {
+//    CartObject *cartInstance = [CartObject getInstance];
+//    
+//    if (!cartInstance.listOfCartItems.count > 0) {
+//        [APIHandler showMessage:@"There are no items in the cart."];
+//        return;
+//    }
+    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[[sender storyboard] instantiateViewControllerWithIdentifier:@"cartView"]];
+    [sender presentViewController:appNavigationController animated:YES completion:nil];
+}
+
++ (NSString *)saveCartItemNumber {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *countStr = [userDefaults objectForKey:@"cartItemCount"];
+    NSInteger count = 0;
+    if (countStr) {
+        count = [countStr integerValue];
+        count = count + 1;
+    }
+    else {
+        count = 1;
+    }
+    [userDefaults setObject:[NSString stringWithFormat:@"%ld",count] forKey:@"cartItemCount"];
+    [userDefaults synchronize];
+    return [NSString stringWithFormat:@"%ld",count];
 }
 
 @end

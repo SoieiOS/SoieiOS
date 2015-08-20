@@ -13,10 +13,12 @@
 #import "CartObject.h"
 #import "UserInformation.h"
 #import "MyAccountViewController.h"
+#import "BBBadgeBarButtonItem.h"
 
 @interface DashboardViewController () {
     NSMutableArray                  *listOfCategories;
     IBOutlet UIBarButtonItem        *sidebarButton;
+    BBBadgeBarButtonItem            *cartButton;
 }
 
 @end
@@ -33,16 +35,17 @@
     self.isProgressiveIndicator = YES;
     self.isElasticIndicatorLimit = YES;
     // Do any additional setup after loading the view.
-    NSDictionary *userInfo = [UserInformation getUserInformation];
+//    NSDictionary *userInfo = [UserInformation getUserInformation];
     CartObject *cartInstance = [CartObject getInstance];
     
-    if (!userInfo && !cartInstance.sessionId.length > 0) {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:@"isloggedin"]) {
+        [APIHandler autoLoginUser:[userDefaults objectForKey:@"usernamePassword"] completionBlock:nil];
+    }
+    else if (cartInstance.sessionId.length == 0){
         [APIHandler getSessionId];
     }
-    else {
-        cartInstance.sessionId  = [[userInfo objectForKey:@"user"] objectForKey:@"session"];
-        [CartObject getCartItems];
-    }
+    
     
     self.title = @"";
     
@@ -50,14 +53,31 @@
     sidebarButton.action = @selector(revealToggle:);
     
     [self getListOfCategories];
+
+    UIBarButtonItem *userButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_tab_profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(userButtonClicked)];
     
-    UIBarButtonItem *userButton = [[UIBarButtonItem alloc] initWithTitle:@"User" style:UIBarButtonItemStyleDone target:self action:@selector(userButtonClicked)];
+//    UIBarButtonItem *cartButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cart.png"] style:UIBarButtonItemStylePlain target:self action:@selector(cartButtonClicked)];
     
-    UIBarButtonItem *cartButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cart.png"] style:UIBarButtonItemStylePlain target:self action:@selector(cartButtonClicked)];
     
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    // Add your action to your button
+    [customButton addTarget:self action:@selector(cartButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    // Customize your button as you want, with an image if you have a pictogram to display for example
+    [customButton setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
+    
+    // Then create and add our custom BBBadgeBarButtonItem
+    cartButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     self.navigationItem.rightBarButtonItems = @[cartButton,userButton];
     
-    [self getListOfCategories];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    cartButton.badgeValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartItemCount"];
+}
+
+- (void)cartButtonClicked {
+    [UserInformation openCartView:self];
 }
 
 - (void)getListOfCategories {
@@ -74,17 +94,6 @@
             [self reloadPagerTabStripView];
         }
     }];
-}
-
-- (void)cartButtonClicked {
-    CartObject *cartInstance = [CartObject getInstance];
-    
-    if (!cartInstance.listOfCartItems.count > 0) {
-        [APIHandler showMessage:@"There are no items in the cart."];
-        return;
-    }
-    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"cartView"]];
-    [self presentViewController:appNavigationController animated:YES completion:nil];
 }
 
 - (void)userButtonClicked {

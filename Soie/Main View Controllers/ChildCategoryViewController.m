@@ -34,7 +34,12 @@
     // Do any additional setup after loading the view.
     
     pageNumber = 1;
+    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
     [self getListOfProducts:pageNumber];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [productCollectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,7 +48,6 @@
 }
 
 - (void)getListOfProducts:(NSInteger)page {
-    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
     NSString *urlString = [NSString stringWithFormat:@"%@/products/category/%@/limit/10/page/%ld",API_BASE_URL,[_categoryInfo objectForKey:@"category_id"],(long)page];
 
     [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
@@ -81,30 +85,36 @@
     
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    [Utilities makeRoundCornerForObject:cell ofRadius:8];
-    NSDictionary *friendInfo = [listOfProducts objectAtIndex:indexPath.row];
-    if (friendInfo) {
-        cell.titleLabel.text = [friendInfo objectForKey:@"name"];
-        cell.priceLabel.text = [friendInfo objectForKey:@"price"];
-        cell.titleLabel.text = [friendInfo objectForKey:@"name"];
-        NSString *imageUrl = [friendInfo objectForKey:@"image"];
+    //[Utilities makeRoundCornerForObject:cell ofRadius:8];
+    NSDictionary *productInfo = [listOfProducts objectAtIndex:indexPath.row];
+    if (productInfo) {
+        cell.titleLabel.text = [productInfo objectForKey:@"name"];
+        cell.priceLabel.attributedText = [Utilities getAttributedStringForDiscounts:productInfo];
+        NSString *imageUrl = [productInfo objectForKey:@"image"];
         [cell.thumbnailImageView setImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
-            [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+            [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
         }
         cell.wishListButton.tag = indexPath.row;
+        
+        if ([UserInformation checkProductPresentInWishList:productInfo]) {
+            [cell.wishListButton setImage:[UIImage imageNamed:@"wishlist_selected.png"] forState:UIControlStateNormal];
+        }
+        else {
+            [cell.wishListButton setImage:[UIImage imageNamed:@"wishlist_desel.png"] forState:UIControlStateNormal];
+        }
     }
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(width,width+23);
+    return CGSizeMake(width,width+63);
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 8;
+    return 5;
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -133,6 +143,7 @@
     [UserInformation saveProductInUserWishlist:[listOfProducts objectAtIndex:button.tag]];
     
     NSLog(@"%@",[UserInformation getUserWishList]);
+    [productCollectionView reloadData];
 }
 
 @end

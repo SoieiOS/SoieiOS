@@ -26,7 +26,7 @@
 @implementation SignUpViewController
 
 - (void)viewDidLoad {
-    [tfEmail becomeFirstResponder];
+    [tfFirstName becomeFirstResponder];
     [self setUpUI];
 }
 

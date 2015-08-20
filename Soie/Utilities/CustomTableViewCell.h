@@ -36,4 +36,10 @@
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIButton *addressButton;
 
+
+
+@property (nonatomic, strong) IBOutlet  UIImageView     *colorImageView;
+@property (nonatomic, strong) IBOutlet  UIImageView     *sizeImageview;
+@property (nonatomic, strong) IBOutlet  UIImageView     *wishListImageview;
+
 @end

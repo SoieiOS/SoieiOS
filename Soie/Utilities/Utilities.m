@@ -45,6 +45,23 @@
     [object setLeftViewMode:UITextFieldViewModeAlways];
 }
 
++(NSAttributedString *)getAttributedStringForDiscounts:(NSDictionary *)productInfo {
+    NSMutableAttributedString *priceString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Rs %0.2f",[[productInfo objectForKey:@"price"] floatValue]]];
+    if ([[productInfo objectForKey:@"special"] length] > 0) {
+        NSMutableAttributedString *specialString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Rs %0.2f",[[productInfo objectForKey:@"special"] floatValue]]];
+        [priceString addAttributes:@{
+                                     NSFontAttributeName : [UIFont systemFontOfSize:11],
+                                     NSForegroundColorAttributeName : [UIColor redColor]
+                                     } range:NSMakeRange(0, [priceString length])];
+        [priceString addAttribute:NSStrikethroughStyleAttributeName
+                            value:@2
+                            range:NSMakeRange(0, [priceString length])];
+        
+        [priceString appendAttributedString:specialString];
+    }
+    return priceString;
+}
+
 + (NSString *)formattedAddress:(NSDictionary *)obj {
     NSString *addressString = @"";
     

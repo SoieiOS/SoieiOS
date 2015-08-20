@@ -19,8 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationBar setBarTintColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-    [self.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationBar setBarTintColor:[UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0]];
+    [self.navigationBar setTintColor:[UIColor colorWithRed:221/255.0 green:163/255.0 blue:178/255.0 alpha:1.0]];
     NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];
     self.navigationBar.translucent = NO;
     [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];

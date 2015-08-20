@@ -23,6 +23,8 @@
 + (void)setViewMovedUpForTextField:(UIView *)textField havingContainerView:(UIView *)containerView withDirection:(BOOL)movedUp;
 + (void)createCustomtextField:(UITextField *)textfield withLeftImage:(UIImage *)leftImage;
 + (NSString *)formattedAddress:(NSDictionary *)obj;
++(NSAttributedString *)getAttributedStringForDiscounts:(NSDictionary *)productInfo;
+
 #pragma mark - Navgation Controller
 + (void)addViewController:(UIViewController *)addController asChildNavigationController:(UINavigationController *)navigationController WithAnimation:(BOOL)animation;
 

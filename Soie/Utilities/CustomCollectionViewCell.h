@@ -13,6 +13,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView      *thumbnailImageView;
 @property (nonatomic, strong) IBOutlet UILabel          *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel          *priceLabel;
+@property (nonatomic, strong) IBOutlet UILabel          *quantityLabel;
 @property (nonatomic, strong) IBOutlet UILabel          *manufacturerLabel;
 @property (nonatomic, strong) IBOutlet UIButton         *wishListButton;
 @property (nonatomic, strong) IBOutlet UIButton         *removeButton;

@@ -114,6 +114,10 @@
                                     tfEmail.text,@"email",
                                     tfpassword.text,@"password",
                                     nil];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:postDictionary forKey:@"usernamePassword"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     NSString *urlString = [NSString stringWithFormat:@"%@login",API_BASE_URL];
     
     [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){

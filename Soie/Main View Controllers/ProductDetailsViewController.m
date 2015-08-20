@@ -13,9 +13,12 @@
 #import "Utilities.h"
 #import "APIHandler.h"
 #import "CartObject.h"
+#import "UserInformation.h"
+#import "BBBadgeBarButtonItem.h"
 
 @interface ProductDetailsViewController () {
-    CartObject      *cartInstance;
+    CartObject              *cartInstance;
+    BBBadgeBarButtonItem    *cartButton;
 }
 @property (strong, nonatomic) BDKNotifyHUD *notify;
 
@@ -35,6 +38,24 @@
         [APIHandler showMessage:@"Out of stock"];
     }
     // Do any additional setup after loading the view.
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    // Add your action to your button
+    [customButton addTarget:self action:@selector(cartButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    // Customize your button as you want, with an image if you have a pictogram to display for example
+    [customButton setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
+    
+    // Then create and add our custom BBBadgeBarButtonItem
+    cartButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
+    
+    self.navigationItem.rightBarButtonItem = cartButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    cartButton.badgeValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartItemCount"];
+}
+
+- (void)cartButtonClicked {
+    [UserInformation openCartView:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,7 +72,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,6 +81,9 @@
     if (indexPath.row == 0) {
         cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"scrollViewCell"];
         cell.titleLabel.text = [_productInfo objectForKey:@"name"];
+//        cell.priceLabel.text = [NSString stringWithFormat:@"Rs %0.1f",[[_productInfo objectForKey:@"price"] floatValue]];
+        cell.priceLabel.attributedText = [Utilities getAttributedStringForDiscounts:_productInfo];
+
 //        NSString *imageUrl = [_avatarInfo objectForKey:@"Avatars_info"];
 //        [cell.iconImageView setImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
 //        if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
@@ -67,15 +91,16 @@
 //        }
         [self loadScrollView:cell];
     }
+//    else if (indexPath.row == 1) {
+//        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"priceReviewCell"];
+//        cell.titleLabel.text = [NSString stringWithFormat:@"Rs %0.1f",[[_productInfo objectForKey:@"price"] floatValue]];
+//        [Utilities makeRoundCornerForObject:cell.addToCartButton ofRadius:15];
+//    }
     else if (indexPath.row == 1) {
-        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"priceReviewCell"];
-        cell.titleLabel.text = [NSString stringWithFormat:@"Rs %0.1f",[[_productInfo objectForKey:@"price"] floatValue]];
-        [Utilities makeRoundCornerForObject:cell.addToCartButton ofRadius:15];
+        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"sizeColorCell"];
+        [self checkProductInWishList:cell];
     }
     else if (indexPath.row == 2) {
-        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"sizeColorCell"];
-    }
-    else if (indexPath.row == 3) {
         cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
         if ([[_productInfo objectForKey:@"description"] length] > 0) {
             cell.titleLabel.text = [_productInfo objectForKey:@"description"];
@@ -84,7 +109,7 @@
             cell.titleLabel.text = @"No Description";
         }
     }
-    else if (indexPath.row == 4) {
+    else if (indexPath.row == 3) {
         cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"scrollViewCell1"];
         [self loadScrollViewForBanner:cell];
     }
@@ -93,20 +118,20 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return 290;
+        return 330;
     }
+//    else if (indexPath.row == 1) {
+//        return 50;
+//    }
     else if (indexPath.row == 1) {
-        return 50;
-    }
-    else if (indexPath.row == 2) {
         return 62;
     }
-    else if (indexPath.row == 3) {
+    else if (indexPath.row == 2) {
         CGFloat descriptionHeight = [Utilities heigthWithWidth:self.view.frame.size.width-20 andFont:[UIFont systemFontOfSize:15] string:[_productInfo objectForKey:@"description"]];
         return descriptionHeight+48;
     }
-    else if (indexPath.row == 4) {
-        return 300;
+    else if (indexPath.row == 3) {
+        return 220;
     }
     return 83;
 }
@@ -200,7 +225,23 @@
 
 - (IBAction)selectColorButtonClicked:(id)sender {
     _isSizeSelected = FALSE;
-    [self openPickerViewWithTitle:@"Select Size" items:[[[_productInfo objectForKey:@"options"] objectAtIndex:0] objectForKey:@"option_value"] optionId:[[[_productInfo objectForKey:@"options"] objectAtIndex:0] objectForKey:@"product_option_id"]];
+    [self openPickerViewWithTitle:@"Select Color" items:[[[_productInfo objectForKey:@"options"] objectAtIndex:0] objectForKey:@"option_value"] optionId:[[[_productInfo objectForKey:@"options"] objectAtIndex:0] objectForKey:@"product_option_id"]];
+}
+
+- (IBAction)addToWishlistButtonClicked:(UIButton *)button {
+    [UserInformation saveProductInUserWishlist:_productInfo];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    CustomTableViewCell *cell = (CustomTableViewCell *)[productDetailsTableview cellForRowAtIndexPath:indexPath];
+    [self checkProductInWishList:cell];
+}
+
+- (void)checkProductInWishList:(CustomTableViewCell *)cell {
+    if ([UserInformation checkProductPresentInWishList:_productInfo]) {
+        [cell.wishListImageview setImage:[UIImage imageNamed:@"wishlist_selected.png"]];
+    }
+    else {
+        [cell.wishListImageview setImage:[UIImage imageNamed:@"wishlist_desel.png"]];
+    }
 }
 
 - (IBAction)addToCartButtonClicked:(id)sender {
@@ -226,11 +267,14 @@
         
         if (success) {
             NSLog(@"Response : %@",jsonDict);
+            
+            cartButton.badgeValue = [UserInformation saveCartItemNumber];
+            [self displayNotification];
             }
     }];
 
-    [cartInstance.listOfCartItems addObject:_productInfo];
-    [self displayNotification];
+//    [cartInstance.listOfCartItems addObject:_productInfo];
+    
 }
 
 - (BDKNotifyHUD *)notify {
@@ -263,11 +307,15 @@
 #pragma mark - PickerViewControllerDelegate
 - (void)pickerValueSelected:(NSString *)value optionId:(NSString *)optionId {
 //    [APIHandler showMessage:value];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    CustomTableViewCell *cell = (CustomTableViewCell *)[productDetailsTableview cellForRowAtIndexPath:indexPath];
     if (_isSizeSelected) {
         _selectedSize = value;
+        cell.sizeImageview.image = [UIImage imageNamed:@"sel_size_icon.png"];
     }
     else {
         _selectedColor = value;
+        cell.colorImageView.image = [UIImage imageNamed:@"sel_color_icon.png"];
     }
     [productOptions setObject:value forKey:optionId];
 }

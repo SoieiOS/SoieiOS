@@ -342,8 +342,8 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keY-7G-v1w">
                                     <rect key="frame" x="10" y="6" width="300" height="36"/>
-                                    <color key="backgroundColor" red="0.96738873110000001" green="0.72592274580000005" blue="0.62987955380000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                                    <color key="backgroundColor" red="0.86556976009999997" green="0.63778824430000003" blue="0.69951781219999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                     <state key="normal" title="CONFIRM">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>

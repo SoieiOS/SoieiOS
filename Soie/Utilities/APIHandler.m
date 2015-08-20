@@ -9,6 +9,7 @@
 #import "APIHandler.h"
 #import "Constants.h"
 #import "CartObject.h"
+#import "UserInformation.h"
 
 @interface NSURLRequest (DummyInterface)
 + (void)setAllowsAnyHTTPSCertificate:(BOOL)allow forHost:(NSString*)host;
@@ -51,7 +52,7 @@
         NSData *postData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
         NSString *responseString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
         NSLog(@"Json data  : %@", responseString);
-        [request setHTTPMethod:@"POST"];
+        [request setHTTPMethod:requestType];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:postData];
     }
@@ -132,6 +133,12 @@
     }
     else {
         errorMsg = [jsonDict objectForKey:@"error"];
+        if ([errorMsg isEqualToString:@"Cart is empty"] || [errorMsg isEqualToString:@"User already is logged"]) {
+            return;
+        }
+        else if ([errorMsg isEqualToString:@"User is not logged in"]) {
+            return;
+        }
     }
     
     
@@ -156,5 +163,23 @@
                                             otherButtonTitles:nil];
     
     [message show];
+}
+
+#pragma auto login ----
++ (void)autoLoginUser:(NSDictionary *)postDictionary completionBlock:(SuccessfullBlockResponse)completionBlock
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@login",API_BASE_URL];
+    
+    [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+        
+        if (success) {
+            NSLog(@"Response : %@",jsonDict);
+            [UserInformation saveUserInformation:[[NSDictionary alloc] initWithObjectsAndKeys:[jsonDict objectForKey:@"data"],@"user", nil]];
+            NSLog(@"%@",[UserInformation getUserInformation]);
+            CartObject *cartInstance = [CartObject getInstance];
+            cartInstance.sessionId  = [[jsonDict objectForKey:@"data"] objectForKey:@"session"];
+//            [CartObject getCartItems];
+        }
+    }];
 }
 @end

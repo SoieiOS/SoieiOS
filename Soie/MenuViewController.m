@@ -12,6 +12,7 @@
 #import "CategoryViewController.h"
 #import "UserInformation.h"
 #import "WishlistViewController.h"
+#import "CustomTableViewCell.h"
 
 @interface MenuViewController ()
 
@@ -22,8 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self createHeaderView];
-    menuItems = @[@"Home",@"Explore", @"Favourites", @"Cart", @"Settings"];
+//    [self createHeaderView];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    menuItems = @[@"User",@"Home",@"Explore", @"Favourites"];
 }
 
 - (void)createHeaderView {
@@ -74,15 +76,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    nameLabel.text = [userDefaults objectForKey:@"fullName"];
-    
-    NSData* imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"profilePicture"];
-    if (imageData != nil && ![imageData isEqual:[NSNull null]]) {
-        if (imageData.length > 0) {
-            userImageView.image = [UIImage imageWithData:imageData];
-        }
-    }
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,23 +97,55 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@Cell",[menuItems objectAtIndex:indexPath.row]] forIndexPath:indexPath];
-    cell.textLabel.text = [menuItems objectAtIndex:indexPath.row];
+    CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@Cell",[menuItems objectAtIndex:indexPath.row]]];
+    if (indexPath.row == 0) {
+        NSDictionary *userInfo = [[UserInformation getUserInformation] objectForKey:@"user"];
+        
+        if (userInfo) {
+            cell.titleLabel.text = [NSString stringWithFormat:@"%@ %@",[userInfo objectForKey:@"firstname"],[userInfo objectForKey:@"lastname"]];
+            cell.subTitleLabel.text = [userInfo objectForKey:@"email"];
+        }
+        else {
+            cell.titleLabel.text = @"Guest";
+            cell.subTitleLabel.text = @"";
+        }
+        
+
+        NSData* imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"profilePicture"];
+        if (imageData != nil && ![imageData isEqual:[NSNull null]]) {
+            if (imageData.length > 0) {
+                cell.iconImageView.image = [UIImage imageWithData:imageData];
+            }
+        }
+    }
+//    cell.textLabel.text = [menuItems objectAtIndex:indexPath.row];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 150;
+    }
+    else {
+        return 44;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    id viewController;
     if (indexPath.row == 0) {
+        return;
+    }
+    id viewController;
+    if (indexPath.row == 1) {
         viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"dashboardView"];
     }
-    else if (indexPath.row == 1) {
+    else if (indexPath.row == 2) {
         viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"categoryView"];
         [viewController setListOfCategories:[UserInformation getCategoryList]];
         [viewController setIsParentView:YES];
     }
-    else if (indexPath.row == 2) {
+    else if (indexPath.row == 3) {
         viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"wishlistView"];
         [viewController setListOfProducts:[UserInformation getUserWishList]];
     }

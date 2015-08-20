@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ActivityIndicator.h"
 #import "UserInformation.h"
+#import "APIHandler.h"
 
 @interface AppDelegate ()
 

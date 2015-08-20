@@ -13,9 +13,12 @@
 #import "UserInformation.h"
 #import "APIHandler.h"
 #import "Utilities.h"
+#import "BBBadgeBarButtonItem.h"
 
 #define kDoubleColumnProbability 40
-@interface ProductsListViewController ()
+@interface ProductsListViewController () {
+    BBBadgeBarButtonItem *cartButton;
+}
 
 @end
 
@@ -26,6 +29,26 @@
     // Do any additional setup after loading the view.
     
     [self getListOfProducts];
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    // Add your action to your button
+    [customButton addTarget:self action:@selector(cartButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    // Customize your button as you want, with an image if you have a pictogram to display for example
+    [customButton setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
+    
+    // Then create and add our custom BBBadgeBarButtonItem
+    cartButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
+    cartButton.badgeValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartItemCount"];
+    
+    self.navigationItem.rightBarButtonItem = cartButton;
+}
+
+- (void)cartButtonClicked {
+    [UserInformation openCartView:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [productCollectionView reloadData];
+    cartButton.badgeValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartItemCount"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,29 +96,34 @@
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     [Utilities makeRoundCornerForObject:cell ofRadius:8];
-    NSDictionary *friendInfo = [listOfProducts objectAtIndex:indexPath.row];
-    if (friendInfo) {
-        cell.titleLabel.text = [friendInfo objectForKey:@"name"];
-        cell.priceLabel.text = [friendInfo objectForKey:@"price"];
-        cell.titleLabel.text = [friendInfo objectForKey:@"name"];
-        NSString *imageUrl = [friendInfo objectForKey:@"image"];
+    NSDictionary *productInfo = [listOfProducts objectAtIndex:indexPath.row];
+    if (productInfo) {
+        cell.titleLabel.text = [productInfo objectForKey:@"name"];
+        cell.priceLabel.attributedText = [Utilities getAttributedStringForDiscounts:productInfo];
+        NSString *imageUrl = [productInfo objectForKey:@"image"];
         [cell.thumbnailImageView setImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
             [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
         }
         cell.wishListButton.tag = indexPath.row;
+        if ([UserInformation checkProductPresentInWishList:productInfo]) {
+            [cell.wishListButton setImage:[UIImage imageNamed:@"wishlist_selected.png"] forState:UIControlStateNormal];
+        }
+        else {
+            [cell.wishListButton setImage:[UIImage imageNamed:@"wishlist_desel.png"] forState:UIControlStateNormal];
+        }
     }
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(width,width+23);
+    return CGSizeMake(width,width+63);
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 8;
+    return 5;
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -112,9 +140,8 @@
 #pragma mark userWishlist methods
 
 - (IBAction)addToWishlistButtonClicked:(UIButton *)button {
-    NSLog(@"Button : %ld",(long)button.tag);
     [UserInformation saveProductInUserWishlist:[listOfProducts objectAtIndex:button.tag]];
-    NSLog(@"%@",[UserInformation getUserWishList]);
+    [productCollectionView reloadData];
 }
 
 

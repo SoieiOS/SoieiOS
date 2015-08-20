@@ -19,4 +19,7 @@
 + (void)removeProductFromWishList:(NSDictionary *)productInfo;
 + (NSMutableArray *)getUserWishList ;
 + (BOOL)checkProductPresentInWishList:(NSDictionary *)productInfo;
+
++ (void)openCartView:(id)sender;
++ (NSString *)saveCartItemNumber;
 @end
