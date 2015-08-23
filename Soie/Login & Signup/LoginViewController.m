@@ -27,6 +27,7 @@
 @implementation LoginViewController
 
 - (void)viewDidLoad {
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUpUI];
 }
 
