@@ -87,6 +87,13 @@
     cell.addressButton.tag = indexPath.row;
     cell.addressLabel.text = addressString;
     
+    if ([self.navigationItem.title isEqualToString:HEADER_TITLE_SHIPPING]) {
+        [cell.addressButton setTitle:@"Select Delivery Address" forState:UIControlStateNormal];
+    }
+    else {
+        [cell.addressButton setTitle:@"Select Billing Address" forState:UIControlStateNormal];
+    }
+    
     return cell;
 }
 
@@ -129,6 +136,7 @@
         
         if (success) {
             self.title = HEADER_TITLE_BILLING;
+            [self.addressTable reloadData];
         }
     }];
 }

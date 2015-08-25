@@ -55,17 +55,41 @@
 
 - (IBAction)applyCouponButtonAction:(id)sender {
     if ([self.enterCouponTextField.text length] > 0) {
+        
+        NSString *couponCode = self.enterCouponTextField.text;
+        
         [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
         NSString *urlString = [NSString stringWithFormat:@"%@coupon",API_BASE_URL];
         
         NSMutableDictionary *postDictionary = [[NSMutableDictionary alloc] init];
-        [postDictionary setObject:self.enterCouponTextField.text forKey:@"coupon"];
+        [postDictionary setObject:couponCode forKey:@"coupon"];
         
         [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
             [ActivityIndicator stopAnimatingForView:self.view];
             
             if (success) {
+                NSArray *totalsArray = [[jsonDict objectForKey:@"data"] objectForKey:@"totals"];
                 
+                if ([[totalsArray valueForKey:@"title"] containsObject:@"Total"]) {
+                    NSInteger index = [[totalsArray valueForKey:@"title"] indexOfObject:@"Total"];
+                    NSString *totalAmount = [[totalsArray valueForKey:@"text"] objectAtIndex:index];
+                    self.TotalAmoutLabel.text = totalAmount;
+                    self.totalValueLabel.text = totalAmount;
+                }
+                if ([[totalsArray valueForKey:@"title"] containsObject:@"Sub-Total"]) {
+                    NSInteger index = [[totalsArray valueForKey:@"title"] indexOfObject:@"Sub-Total"];
+                    NSString *totalAmount = [[totalsArray valueForKey:@"text"] objectAtIndex:index];
+                    self.subTotalValueLabel.text = totalAmount;
+                }
+                if ([[totalsArray valueForKey:@"title"] containsObject:[NSString stringWithFormat:@"Coupon (%@)",couponCode]]) {
+                    NSInteger index = [[totalsArray valueForKey:@"title"] indexOfObject:[NSString stringWithFormat:@"Coupon (%@)",couponCode]];
+                    NSString *totalAmount = [[totalsArray valueForKey:@"text"] objectAtIndex:index];
+                    self.couponValueLabel.text = totalAmount;
+                }
+            }
+            else {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[jsonDict objectForKey:@"error"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alertView show];
             }
         }];
     }
@@ -97,7 +121,8 @@
         
         if (success) {
             NSArray *totalsArray = [[jsonDict objectForKey:@"data"] objectForKey:@"totals"];
-            
+            NSString *couponCode = [[jsonDict objectForKey:@"data"] objectForKey:@"coupon"];
+
             if ([[totalsArray valueForKey:@"title"] containsObject:@"Total"]) {
                 NSInteger index = [[totalsArray valueForKey:@"title"] indexOfObject:@"Total"];
                 NSString *totalAmount = [[totalsArray valueForKey:@"text"] objectAtIndex:index];
@@ -109,7 +134,15 @@
                 NSString *totalAmount = [[totalsArray valueForKey:@"text"] objectAtIndex:index];
                 self.subTotalValueLabel.text = totalAmount;
             }
-
+            if ([[[jsonDict objectForKey:@"data"] objectForKey:@"coupon_status"] isEqualToString:@"1"] && [couponCode length] > 0 && [[totalsArray valueForKey:@"title"] containsObject:[NSString stringWithFormat:@"Coupon (%@)",couponCode]])
+            {
+                self.enterCouponTextField.text = couponCode;
+                [self useCouponCodeButtonAction:self.useCouponCodeButton];
+                
+                NSInteger index = [[totalsArray valueForKey:@"title"] indexOfObject:[NSString stringWithFormat:@"Coupon (%@)",couponCode]];
+                NSString *totalAmount = [[totalsArray valueForKey:@"text"] objectAtIndex:index];
+                self.couponValueLabel.text = totalAmount;
+            }
         }
         [self getShippingMethod];
     }];
@@ -199,14 +232,20 @@
                 yCord += 35;
             }
             
+            if (yCord < self.paymentTypeView.frame.size.height) {
+                yCord = self.paymentTypeView.frame.size.height;
+            }
+            
             self.paymentTypeView.frame = CGRectMake(8, 27, self.view.frame.size.width-16, yCord);
             self.paymentMethodView.frame = CGRectMake(0, 240, self.view.frame.size.width, yCord+33);
 
             self.useCouponCodeButton.frame = CGRectMake(8, self.paymentMethodView.frame.origin.y+self.paymentMethodView.frame.size.height+15, 160, 30);
             self.couponView.frame = CGRectMake(8, self.useCouponCodeButton.frame.origin.y+self.useCouponCodeButton.frame.size.height+8, self.view.frame.size.width-16, 128);
             
-            self.useCouponCodeButton.selected = YES;
-            [self useCouponCodeButtonAction:self.useCouponCodeButton];
+            if (!self.useCouponCodeButton.selected) {
+                self.useCouponCodeButton.selected = YES;
+                [self useCouponCodeButtonAction:self.useCouponCodeButton];
+            }
         }
     }];
 }
@@ -290,7 +329,7 @@
         [ActivityIndicator stopAnimatingForView:self.view];
         
         if (success) {
-            [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@",jsonDict[@"order_id"]]];
+            [APIHandler showMessage:[NSString stringWithFormat:@"Your Order has been successfully placed. Your Order Id is %@",jsonDict[@"order_id"]]];
             [self dismissViewControllerAnimated:YES completion:nil];
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
         }
@@ -366,7 +405,7 @@
                      response:(NSDictionary *)response
 {
     DEBUGLOG(@"ViewController::didSucceedTransactionresponse= %@", [response description]);
-    [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@", response[@"ORDERID"]]];
+    [APIHandler showMessage:[NSString stringWithFormat:@"Your Order has been successfully placed. Your Order Id is %@", response[@"ORDERID"]]];
 
 //    [self removeController:controller];
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];

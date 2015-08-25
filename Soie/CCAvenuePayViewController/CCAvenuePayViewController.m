@@ -46,28 +46,8 @@
             NSDictionary *tempDic = jsonDict[@"data"];
             
             NSArray *webViewParams = [NSArray arrayWithObjects:
-                                      @"Merchant_Id",           tempDic[@"Merchant_Id"],
-                                      @"Amount",                tempDic[@"Amount"],
-                                      @"Order_Id",              tempDic[@"Order_Id"],
-                                      @"Redirect_Url",          tempDic[@"Redirect_Url"],
-                                      @"Checksum",              tempDic[@"Checksum"],
-                                      @"billing_cust_name",     tempDic[@"billing_cust_name"],
-                                      @"billing_cust_address",  tempDic[@"billing_cust_address"],
-                                      @"billing_cust_country",  tempDic[@"billing_cust_country"],
-                                      @"billing_cust_state",    tempDic[@"billing_cust_state"],
-                                      @"billing_cust_city",     tempDic[@"billing_cust_city"],
-                                      @"billing_zip_code",      tempDic[@"billing_zip_code"],
-                                      @"billing_cust_tel",      tempDic[@"billing_cust_tel"],
-                                      @"billing_cust_email",    tempDic[@"billing_cust_email"],
-                                      @"delivery_cust_name",    tempDic[@"delivery_cust_name"],
-                                      @"delivery_cust_address", tempDic[@"delivery_cust_address"],
-                                      @"delivery_cust_country", tempDic[@"delivery_cust_country"],
-                                      @"delivery_cust_state",   tempDic[@"delivery_cust_state"],
-                                      @"delivery_cust_city",    tempDic[@"delivery_cust_city"],
-                                      @"delivery_zip_code",     tempDic[@"delivery_zip_code"],
-                                      @"delivery_cust_tel",     tempDic[@"delivery_cust_tel"],
-                                      @"delivery_cust_notes",   tempDic[@"delivery_cust_notes"],
-                                      @"Merchant_Param",        tempDic[@"Merchant_Param"],
+                                      @"encRequest",            tempDic[@"encRequest"],
+                                      @"access_code",           tempDic[@"access_code"],
                                       nil];
             
             [self UIWebViewWithPost:self.payWebView url:tempDic[@"action"] params:webViewParams];
@@ -112,7 +92,7 @@
                 NSString *orderParams = [postParams substringFromIndex:(range.location+range.length)];
                 NSArray *arr1 = [orderParams componentsSeparatedByString:@"&"];
 
-                [APIHandler showMessage:[NSString stringWithFormat:@"Your order has been successfully placed. Your order id is %@", [arr1 firstObject]]];
+                [APIHandler showMessage:[NSString stringWithFormat:@"Your Order has been successfully placed. Your Order Id is %@", [arr1 firstObject]]];
                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
 
                 [self dismissViewControllerAnimated:YES completion:nil];

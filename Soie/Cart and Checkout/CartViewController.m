@@ -23,7 +23,7 @@
 }
 
 - (void)viewDidLoad {
-    self.title = @"My cart";
+    self.title = @"My Cart";
     cartInstance = [CartObject getInstance];
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
     self.navigationItem.rightBarButtonItem = cancelButton;

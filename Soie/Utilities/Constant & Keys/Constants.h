@@ -13,7 +13,7 @@
 
 static NSString * API_BASE_URL = @"http://www.soie.in.php54-3.dfw1-2.websitetestlink.com/api/rest/";
 
-static NSString * applicationName = @"Soie";
+static NSString * applicationName = @"SOIE";
 
 
 #define NAVIGATE_TO_VIEW(id)           [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:(NSString *)CFSTR(#id)] animated:YES];
