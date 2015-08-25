@@ -994,7 +994,7 @@
                                     <outlet property="delegate" destination="mOj-LO-7Qq" id="8Sr-0R-dj4"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Total Amount :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ana-67-S1i">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ana-67-S1i">
                                 <rect key="frame" x="16" y="32" width="135" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Z1t-hN-dWD"/>
@@ -1004,8 +1004,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZA-gD-hqV">
-                                <rect key="frame" x="178" y="27" width="397" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZA-gD-hqV">
+                                <rect key="frame" x="159" y="27" width="430" height="32"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <color key="textColor" red="0.86556976010101017" green="0.63778824428495484" blue="0.69951781221726572" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1033,22 +1033,26 @@
                             <constraint firstItem="CJd-eK-JVm" firstAttribute="leading" secondItem="bIa-6b-PC3" secondAttribute="leadingMargin" constant="-6" id="AOw-bZ-c9v"/>
                             <constraint firstItem="CJd-eK-JVm" firstAttribute="top" secondItem="qYc-Ym-g5c" secondAttribute="bottom" constant="6" id="Dqb-Lg-tK7"/>
                             <constraint firstItem="Ana-67-S1i" firstAttribute="top" secondItem="sqf-Ff-u7v" secondAttribute="bottom" constant="12" id="EJb-Pb-BCQ"/>
+                            <constraint firstItem="FZA-gD-hqV" firstAttribute="top" secondItem="sqf-Ff-u7v" secondAttribute="bottom" constant="7" id="ENE-oG-5cg"/>
+                            <constraint firstItem="Ana-67-S1i" firstAttribute="leading" secondItem="bIa-6b-PC3" secondAttribute="leadingMargin" id="Fmq-Gh-loU"/>
                             <constraint firstItem="qYc-Ym-g5c" firstAttribute="top" secondItem="Ana-67-S1i" secondAttribute="bottom" constant="11" id="G4g-VM-y6R"/>
-                            <constraint firstItem="FZA-gD-hqV" firstAttribute="leading" secondItem="Ana-67-S1i" secondAttribute="trailing" constant="27" id="TrB-SB-Hex"/>
+                            <constraint firstItem="FZA-gD-hqV" firstAttribute="leading" secondItem="Ana-67-S1i" secondAttribute="trailing" constant="8" id="TrB-SB-Hex"/>
                             <constraint firstItem="qYc-Ym-g5c" firstAttribute="leading" secondItem="bIa-6b-PC3" secondAttribute="leading" id="VJT-JJ-PcO"/>
                             <constraint firstAttribute="trailing" secondItem="qYc-Ym-g5c" secondAttribute="trailing" id="XYp-pU-8dT"/>
                             <constraint firstItem="qYc-Ym-g5c" firstAttribute="top" secondItem="FZA-gD-hqV" secondAttribute="bottom" constant="5" id="cRg-3L-9Cs"/>
                             <constraint firstItem="FZA-gD-hqV" firstAttribute="top" secondItem="sqf-Ff-u7v" secondAttribute="bottom" constant="7" id="gkf-iE-WjY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FZA-gD-hqV" secondAttribute="trailing" constant="9" id="vaG-8Z-MBC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FZA-gD-hqV" secondAttribute="trailing" constant="-5" id="vaG-8Z-MBC"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="2Vy-G6-Oeq"/>
+                                <exclude reference="gkf-iE-WjY"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="cartCollectionView" destination="qYc-Ym-g5c" id="acX-Qo-uLQ"/>
+                        <outlet property="itemsCountLabel" destination="Ana-67-S1i" id="QeG-RH-J3M"/>
                         <outlet property="priceLabel" destination="FZA-gD-hqV" id="D1T-8f-63g"/>
                     </connections>
                 </viewController>

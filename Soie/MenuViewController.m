@@ -13,6 +13,7 @@
 #import "UserInformation.h"
 #import "WishlistViewController.h"
 #import "CustomTableViewCell.h"
+#import "Utilities.h"
 
 @interface MenuViewController ()
 
@@ -114,6 +115,7 @@
         NSData* imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"profilePicture"];
         if (imageData != nil && ![imageData isEqual:[NSNull null]]) {
             if (imageData.length > 0) {
+                [Utilities makeRoundCornerForObject:cell.iconImageView ofRadius:cell.iconImageView.frame.size.width/2];
                 cell.iconImageView.image = [UIImage imageWithData:imageData];
             }
         }

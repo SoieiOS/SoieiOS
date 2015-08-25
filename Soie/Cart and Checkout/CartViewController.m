@@ -20,6 +20,8 @@
     CartObject                      *cartInstance;
     IBOutlet UICollectionView       *cartCollectionView;
     IBOutlet UILabel                *priceLabel;
+    IBOutlet UILabel                *itemsCountLabel;
+
 }
 
 - (void)viewDidLoad {
@@ -28,7 +30,7 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
     self.navigationItem.rightBarButtonItem = cancelButton;
     [self getCartItems];
-    [self getTotalPrice];
+//    [self getTotalPrice];
 }
 
 - (void)getCartItems {
@@ -43,8 +45,13 @@
 
             [cartInstance setListOfCartItems:[[[jsonDict objectForKey:@"data"] objectForKey:@"products"] mutableCopy]];
             [cartCollectionView reloadData];
-            [self getTotalPrice];
-            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",cartInstance.listOfCartItems.count] forKey:@"cartItemCount"];
+            
+            itemsCountLabel.text = [NSString stringWithFormat:@"ITEMS(%ld)",(unsigned long)cartInstance.listOfCartItems.count];
+            if ([[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] count]>1) {
+                [self getTotalPrice:[[[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] objectAtIndex:1] objectForKey:@"text"]];
+            }
+//
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(unsigned long)cartInstance.listOfCartItems.count] forKey:@"cartItemCount"];
         }
         else if ([[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
@@ -62,7 +69,7 @@
     
 }
 
-- (void)getTotalPrice {
+- (void)getTotalPrice:(NSString *)price {
     float totalPrice = 0;
     for (int i = 0; i < cartInstance.listOfCartItems.count; i++) {
         NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:i];
@@ -70,7 +77,7 @@
         price = [price stringByReplacingOccurrencesOfString:@"," withString:@""];
         totalPrice = totalPrice + [price floatValue];
     }
-    priceLabel.text = [NSString stringWithFormat:@"%0.1f",totalPrice];
+    priceLabel.text = [NSString stringWithFormat:@"Total :%@",price];
 }
 
 - (IBAction)stepperValueChanged:(UIStepper *)stepper
@@ -116,7 +123,9 @@
             
             [cartInstance.listOfCartItems removeObjectAtIndex:[sender tag]];
             [cartCollectionView reloadData];
-            [self getTotalPrice];
+            if ([[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] count]>1) {
+                [self getTotalPrice:[[[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] objectAtIndex:1] objectForKey:@"text"]];
+            }
             if ([[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
 //                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
 

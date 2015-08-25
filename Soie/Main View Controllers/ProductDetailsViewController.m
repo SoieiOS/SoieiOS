@@ -103,7 +103,7 @@
     else if (indexPath.row == 2) {
         cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"descriptionCell"];
         if ([[_productInfo objectForKey:@"description"] length] > 0) {
-            cell.titleLabel.text = [_productInfo objectForKey:@"description"];
+            cell.titleLabel.text = [Utilities getStringFromHTMLString:[_productInfo objectForKey:@"description"]];
         }
         else {
             cell.titleLabel.text = @"No Description";
@@ -224,6 +224,9 @@
 }
 
 - (IBAction)selectColorButtonClicked:(id)sender {
+    if ([[_productInfo objectForKey:@"options"] count] == 0) {
+        return;
+    }
     _isSizeSelected = FALSE;
     [self openPickerViewWithTitle:@"Select Color" items:[[[_productInfo objectForKey:@"options"] objectAtIndex:0] objectForKey:@"option_value"] optionId:[[[_productInfo objectForKey:@"options"] objectAtIndex:0] objectForKey:@"product_option_id"]];
 }

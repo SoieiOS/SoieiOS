@@ -62,6 +62,12 @@
     return priceString;
 }
 
++ (NSString *)getStringFromHTMLString:(NSString *)htmlString {
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    
+    return [attributedString string];
+}
+
 + (NSString *)formattedAddress:(NSDictionary *)obj {
     NSString *addressString = @"";
     
@@ -262,7 +268,5 @@
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     return imageView;
 }
-
-
 
 @end
