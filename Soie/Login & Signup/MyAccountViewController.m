@@ -12,6 +12,7 @@
 #import "UserInformation.h"
 #import "Constants.h"
 #import "APIHandler.h"
+#import "Utilities.h"
 
 @interface MyAccountViewController () <UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UserInformationUpdated> {
     
@@ -96,6 +97,14 @@
     if (indexPath.row == 0) {
         cellIdentifier = @"uploadThumbnailCell";
         cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        NSData* imageData = [[NSUserDefaults standardUserDefaults] objectForKey:@"profilePicture"];
+        if (imageData != nil && ![imageData isEqual:[NSNull null]]) {
+            if (imageData.length > 0) {
+                [Utilities makeRoundCornerForObject:cell.iconImageView ofRadius:cell.iconImageView.frame.size.width/2];
+                cell.iconImageView.image = [UIImage imageWithData:imageData];
+            }
+        }
         return cell;
     }
     else {

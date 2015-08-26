@@ -46,6 +46,7 @@
         tfCity.text = [_addressInfo objectForKey:@"city"];
         tfZip.text = [_addressInfo objectForKey:@"postcode"];
         tfState.text = [_addressInfo objectForKey:@"zone"];
+        selectedZone = [NSString stringWithFormat:@"%@",[_addressInfo objectForKey:@"zone_code"]];
     }
 }
 

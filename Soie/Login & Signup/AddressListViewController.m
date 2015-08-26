@@ -32,12 +32,15 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonClicked)];
     self.navigationItem.rightBarButtonItem = addButton;
-    [self getListOfAddresses];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self getListOfAddresses];
 }
 
 - (void)addButtonClicked {

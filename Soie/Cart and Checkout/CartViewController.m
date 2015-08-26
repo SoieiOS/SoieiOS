@@ -77,7 +77,7 @@
         price = [price stringByReplacingOccurrencesOfString:@"," withString:@""];
         totalPrice = totalPrice + [price floatValue];
     }
-    priceLabel.text = [NSString stringWithFormat:@"Total :%@",price];
+    priceLabel.text = [NSString stringWithFormat:@"Total: %@",price];
 }
 
 - (IBAction)stepperValueChanged:(UIStepper *)stepper

@@ -9,6 +9,7 @@
 #import "MyOrdersViewController.h"
 #import "CustomTableViewCell.h"
 #import "APIHandler.h"
+#import "Utilities.h"
 
 @interface MyOrdersViewController () {
     NSMutableArray      *listOfOrders;
@@ -20,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"My Orders";
     
     listOfOrders = [[NSMutableArray alloc] init];
     // Do any additional setup after loading the view.
@@ -40,6 +43,10 @@
             NSLog(@"Response : %@",jsonDict);
             listOfOrders = [[[jsonDict objectForKey:@"data"] objectForKey:@"orders"] mutableCopy];
             [self.tableView reloadData];
+            if (listOfOrders.count == 0) {
+//                self.tableView.hidden = YES;
+                [self.tableView addSubview:[Utilities createLabelOfSize:CGRectMake(20, 100, self.view.frame.size.width-40, 40) text:@"Currently there are no Orders" font:[UIFont systemFontOfSize:14] fontColor:[UIColor darkGrayColor] alignment:NSTextAlignmentCenter]];
+            }
         }
     }];
 //}
