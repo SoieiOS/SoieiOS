@@ -81,7 +81,8 @@
                                     @"1",@"agree",
                                     nil];
     NSString *urlString = [NSString stringWithFormat:@"%@register",API_BASE_URL];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:postDictionary forKey:@"usernamePassword"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
         [ActivityIndicator stopAnimatingForView:self.view];
         
@@ -92,7 +93,7 @@
             NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
             [userDefaults1 setBool:YES forKey:@"isloggedin"];
             [userDefaults1 synchronize];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }];
 }

@@ -95,7 +95,9 @@
                 [APIHandler showMessage:[NSString stringWithFormat:@"Your Order has been successfully placed. Your Order Id is %@", [arr1 firstObject]]];
                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
 
-                [self dismissViewControllerAnimated:YES completion:nil];
+//                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+
             }
             else
             {

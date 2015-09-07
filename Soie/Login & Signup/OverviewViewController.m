@@ -24,8 +24,8 @@
     // Do any additional setup after loading the view.
     [self addBackgroundView];
         
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
-    self.navigationItem.rightBarButtonItem = cancelButton;
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+//    self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
 - (void)cancelButtonClicked {

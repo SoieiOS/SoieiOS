@@ -12,7 +12,7 @@
     IBOutlet    UITextField         *currentPasswordTextField;
     IBOutlet    UITextField         *newPasswordTextField;
     IBOutlet    UITextField         *confirmPasswordTextField;
-    IBOutlet    UIBarButtonItem     *saveButton;
+    IBOutlet    UIButton            *submitButton;
 }
 
 @end

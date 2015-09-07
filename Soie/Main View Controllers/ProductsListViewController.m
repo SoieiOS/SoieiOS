@@ -101,9 +101,9 @@
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
         cell.priceLabel.attributedText = [Utilities getAttributedStringForDiscounts:productInfo];
         NSString *imageUrl = [productInfo objectForKey:@"image"];
-        [cell.thumbnailImageView setImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+        [cell.thumbnailImageView setImage:[UIImage imageNamed:@"no_image_products.png"]];
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
-            [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+            [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
         }
         cell.wishListButton.tag = indexPath.row;
         if ([UserInformation checkProductPresentInWishList:productInfo]) {

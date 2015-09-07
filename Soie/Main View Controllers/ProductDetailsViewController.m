@@ -142,8 +142,8 @@
 }
 
 - (void)loadScrollView:(CustomTableViewCell *)cell {
-//    NSArray *images = [_productInfo objectForKey:@"images"];
-    NSArray *images = [[NSArray alloc] initWithObjects:[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"], nil];
+    NSArray *images = [_productInfo objectForKey:@"images"];
+//    NSArray *images = [[NSArray alloc] initWithObjects:[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"],[_productInfo objectForKey:@"image"], nil];
     for (int i = 0; i < [images count]; i++) {
         CGRect frame;
         frame.origin.x = cell.frame.size.width * i;
@@ -151,7 +151,8 @@
         frame.size = cell.scrollView.frame.size;
         
         UIImageView *subview = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, cell.scrollView.frame.size.height)];
-        [subview setImageWithURL:[NSURL URLWithString:[images objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+        [subview setImageWithURL:[NSURL URLWithString:[images objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
+        subview.contentMode = UIViewContentModeScaleAspectFit;
 //        subview.contentMode = UIViewContentModeScaleAspectFit;
         //        subview.backgroundColor = [UIColor blackColor];
         [cell.scrollView addSubview:subview];
@@ -172,10 +173,11 @@
         frame.size = cell.scrollView.frame.size;
         
         UIImageView *subview = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, cell.scrollView.frame.size.height)];
+        subview.contentMode = UIViewContentModeScaleAspectFit;
         NSString *imageUrl = [[cartInstance.listOfBanners objectAtIndex:i] objectForKey:@"image"];
         imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        [subview setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+        [subview setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
         //        subview.contentMode = UIViewContentModeScaleAspectFit;
         //        subview.backgroundColor = [UIColor blackColor];
         [cell.scrollView addSubview:subview];

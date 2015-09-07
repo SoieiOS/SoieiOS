@@ -35,8 +35,10 @@
     
     [self setUpPickerViewController];
     [self getUserInformation];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
-    self.navigationItem.rightBarButtonItem = cancelButton;
+    
+    self.title = @"My Account";
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+//    self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
 - (void)cancelButtonClicked {
@@ -156,6 +158,10 @@
         [actionSheet showInView:self.view];
         return;
     }
+    if (indexPath.row == 4) {
+        NAVIGATE_TO_VIEW(changePasswordView);
+        return;
+    }
     if (indexPath.row == 5) {
         NAVIGATE_TO_VIEW(addressListView);
         return;
@@ -175,8 +181,12 @@
                 //            NAVIGATE_TO_VIEW(myAccountViews);
                 NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
                 [userDefaults1 setBool:NO forKey:@"isloggedin"];
+                [userDefaults1 setObject:nil forKey:@"usernamePassword"];
+                [userDefaults1 setObject:nil forKey:@"profilePicture"];
+                [userDefaults1 setObject:nil forKey:@"userInformation"];
                 [userDefaults1 synchronize];
-                [self dismissViewControllerAnimated:YES completion:nil];
+//                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
         

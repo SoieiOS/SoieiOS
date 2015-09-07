@@ -163,6 +163,7 @@
 		AC5109FA1B4EB1F400EB0412 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5109F91B4EB1F400EB0412 /* CartViewController.m */; };
 		AC510B1D1B5B95EC00EB0412 /* CountryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC510B1C1B5B95EC00EB0412 /* CountryListViewController.m */; };
 		AC6830A91B3C02A3006AA72E /* SelectSizeColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6830A81B3C02A3006AA72E /* SelectSizeColorViewController.m */; };
+		AC6BDBE11B9DF9A800DFF078 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6BDBE01B9DF9A800DFF078 /* ForgotPasswordViewController.m */; };
 		ACA812121B709B56007B8433 /* BillingAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA812111B709B56007B8433 /* BillingAddressViewController.m */; };
 		ACA812151B709B69007B8433 /* DileveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA812141B709B69007B8433 /* DileveryViewController.m */; };
 		ACA812191B709B8F007B8433 /* GuestLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA812181B709B8F007B8433 /* GuestLoginViewController.m */; };
@@ -410,6 +411,8 @@
 		AC510B1C1B5B95EC00EB0412 /* CountryListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CountryListViewController.m; path = "Login & Signup/CountryListViewController.m"; sourceTree = "<group>"; };
 		AC6830A71B3C02A3006AA72E /* SelectSizeColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectSizeColorViewController.h; sourceTree = "<group>"; };
 		AC6830A81B3C02A3006AA72E /* SelectSizeColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectSizeColorViewController.m; sourceTree = "<group>"; };
+		AC6BDBDF1B9DF9A800DFF078 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgotPasswordViewController.h; path = "Login & Signup/ForgotPasswordViewController.h"; sourceTree = "<group>"; };
+		AC6BDBE01B9DF9A800DFF078 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgotPasswordViewController.m; path = "Login & Signup/ForgotPasswordViewController.m"; sourceTree = "<group>"; };
 		ACA812101B709B56007B8433 /* BillingAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BillingAddressViewController.h; path = "Cart and Checkout/BillingAddressViewController.h"; sourceTree = "<group>"; };
 		ACA812111B709B56007B8433 /* BillingAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BillingAddressViewController.m; path = "Cart and Checkout/BillingAddressViewController.m"; sourceTree = "<group>"; };
 		ACA812131B709B69007B8433 /* DileveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DileveryViewController.h; path = "Cart and Checkout/DileveryViewController.h"; sourceTree = "<group>"; };
@@ -850,6 +853,8 @@
 				AC35F4691B2B34150018013C /* OverviewViewController.m */,
 				AC35F46B1B2B34310018013C /* LoginViewController.h */,
 				AC35F46C1B2B34310018013C /* LoginViewController.m */,
+				AC6BDBDF1B9DF9A800DFF078 /* ForgotPasswordViewController.h */,
+				AC6BDBE01B9DF9A800DFF078 /* ForgotPasswordViewController.m */,
 				AC35F46E1B2B34450018013C /* SignUpViewController.h */,
 				AC35F46F1B2B34450018013C /* SignUpViewController.m */,
 				ACCE87A61B63873500D637D0 /* MyAccountViewController.h */,
@@ -1149,6 +1154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC6BDBE11B9DF9A800DFF078 /* ForgotPasswordViewController.m in Sources */,
 				AC35F4571B2B32F30018013C /* AFURLConnectionOperation.m in Sources */,
 				ACCE879F1B63724600D637D0 /* UserInformation.m in Sources */,
 				AC35F5791B3172200018013C /* ProductsListViewController.m in Sources */,

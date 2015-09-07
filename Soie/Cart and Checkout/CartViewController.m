@@ -28,8 +28,8 @@
     self.title = @"My Cart";
     listOfCartItems = [[NSMutableArray alloc] init];
     cartInstance = [CartObject getInstance];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
-    self.navigationItem.rightBarButtonItem = cancelButton;
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+//    self.navigationItem.rightBarButtonItem = cancelButton;
     [self getCartItems];
 //    [self getTotalPrice];
 }
@@ -144,7 +144,8 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:@""]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

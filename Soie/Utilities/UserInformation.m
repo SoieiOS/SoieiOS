@@ -113,8 +113,8 @@
 //        [APIHandler showMessage:@"There are no items in the cart."];
 //        return;
 //    }
-    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[[sender storyboard] instantiateViewControllerWithIdentifier:@"cartView"]];
-    [sender presentViewController:appNavigationController animated:YES completion:nil];
+//    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[[sender storyboard] instantiateViewControllerWithIdentifier:@"cartView"]];
+    [[sender navigationController] pushViewController:[[sender storyboard] instantiateViewControllerWithIdentifier:@"cartView"] animated:YES];
 }
 
 + (NSString *)saveCartItemNumber {

@@ -116,9 +116,6 @@
                                     tfpassword.text,@"password",
                                     nil];
     
-    [[NSUserDefaults standardUserDefaults] setObject:postDictionary forKey:@"usernamePassword"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     NSString *urlString = [NSString stringWithFormat:@"%@login",API_BASE_URL];
     
     [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"POST" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
@@ -128,13 +125,19 @@
             NSLog(@"Response : %@",jsonDict);
             [UserInformation saveUserInformation:[[NSDictionary alloc] initWithObjectsAndKeys:[jsonDict objectForKey:@"data"],@"user", nil]];
             NSLog(@"%@",[UserInformation getUserInformation]);
+            
             NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
             [userDefaults1 setBool:YES forKey:@"isloggedin"];
+            [userDefaults1 setObject:postDictionary forKey:@"usernamePassword"];
             [userDefaults1 synchronize];
 //            NAVIGATE_TO_VIEW(myAccountViews);
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }];
+}
+
+- (IBAction)forgotPasswordButtonClicked:(id)sender {
+    NAVIGATE_TO_VIEW(forgotPasswordView);
 }
 
 #pragma mark textfield delegates -------
