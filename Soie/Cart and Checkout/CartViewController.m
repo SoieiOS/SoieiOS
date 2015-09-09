@@ -21,14 +21,15 @@
     IBOutlet UICollectionView       *cartCollectionView;
     IBOutlet UILabel                *priceLabel;
     IBOutlet UILabel                *itemsCountLabel;
-
+    NSMutableArray                  *listOfCartItems;
 }
 
 - (void)viewDidLoad {
     self.title = @"My Cart";
+    listOfCartItems = [[NSMutableArray alloc] init];
     cartInstance = [CartObject getInstance];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
-    self.navigationItem.rightBarButtonItem = cancelButton;
+//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonClicked)];
+//    self.navigationItem.rightBarButtonItem = cancelButton;
     [self getCartItems];
 //    [self getTotalPrice];
 }
@@ -44,14 +45,15 @@
             NSLog(@"Response : %@",jsonDict);
 
             [cartInstance setListOfCartItems:[[[jsonDict objectForKey:@"data"] objectForKey:@"products"] mutableCopy]];
+            listOfCartItems = [[[jsonDict objectForKey:@"data"] objectForKey:@"products"] mutableCopy];
             [cartCollectionView reloadData];
             
-            itemsCountLabel.text = [NSString stringWithFormat:@"ITEMS(%ld)",(unsigned long)cartInstance.listOfCartItems.count];
+            itemsCountLabel.text = [NSString stringWithFormat:@"ITEMS(%ld)",(unsigned long)listOfCartItems.count];
             if ([[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] count]>1) {
                 [self getTotalPrice:[[[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] objectAtIndex:1] objectForKey:@"text"]];
             }
 //
-            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(unsigned long)cartInstance.listOfCartItems.count] forKey:@"cartItemCount"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",(unsigned long)listOfCartItems.count] forKey:@"cartItemCount"];
         }
         else if ([[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
@@ -71,13 +73,13 @@
 
 - (void)getTotalPrice:(NSString *)price {
     float totalPrice = 0;
-    for (int i = 0; i < cartInstance.listOfCartItems.count; i++) {
-        NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:i];
+    for (int i = 0; i < listOfCartItems.count; i++) {
+        NSDictionary *productInfo = [listOfCartItems objectAtIndex:i];
         NSString *price = [[productInfo objectForKey:@"price"] stringByReplacingOccurrencesOfString:@"Rs." withString:@""];
         price = [price stringByReplacingOccurrencesOfString:@"," withString:@""];
         totalPrice = totalPrice + [price floatValue];
     }
-    priceLabel.text = [NSString stringWithFormat:@"Total :%@",price];
+    priceLabel.text = [NSString stringWithFormat:@"Total: %@",price];
 }
 
 - (IBAction)stepperValueChanged:(UIStepper *)stepper
@@ -114,14 +116,14 @@
     [ActivityIndicator startAnimatingWithText:@"Deleting" forView:self.view];
     
     NSString *urlString = [NSString stringWithFormat:@"%@/cart",API_BASE_URL];
-    NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:[sender tag]];
+    NSDictionary *productInfo = [listOfCartItems objectAtIndex:[sender tag]];
     [APIHandler getResponseFor:[[NSDictionary alloc] initWithObjectsAndKeys:[productInfo objectForKey:@"key"],@"product_id", nil] url:[NSURL URLWithString:urlString] requestType:@"DELETE" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
         [ActivityIndicator stopAnimatingForView:self.view];
 
         if (success || [[jsonDict objectForKey:@"error"] isEqualToString:@"Cart is empty"]) {
             NSLog(@"Response : %@",jsonDict);
             
-            [cartInstance.listOfCartItems removeObjectAtIndex:[sender tag]];
+            [listOfCartItems removeObjectAtIndex:[sender tag]];
             [cartCollectionView reloadData];
             if ([[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] count]>1) {
                 [self getTotalPrice:[[[[jsonDict objectForKey:@"data"] objectForKey:@"totals"] objectAtIndex:1] objectForKey:@"text"]];
@@ -132,7 +134,7 @@
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[jsonDict objectForKey:@"error"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alertView show];
             }
-            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",cartInstance.listOfCartItems.count] forKey:@"cartItemCount"];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%ld",listOfCartItems.count] forKey:@"cartItemCount"];
 
         }
     }];
@@ -142,14 +144,15 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:@""]) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
 #pragma mark C0llectionview Delegate-------------
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return cartInstance.listOfCartItems.count;
+    return listOfCartItems.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -158,7 +161,7 @@
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
 //    [Utilities makeRoundCornerForObject:cell ofRadius:8];
-    NSDictionary *productInfo = [cartInstance.listOfCartItems objectAtIndex:indexPath.row];
+    NSDictionary *productInfo = [listOfCartItems objectAtIndex:indexPath.row];
     if (productInfo.allKeys.count > 0) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
         cell.priceLabel.text = [productInfo objectForKey:@"price"];

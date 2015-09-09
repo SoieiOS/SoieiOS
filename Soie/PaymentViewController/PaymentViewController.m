@@ -330,8 +330,9 @@
         
         if (success) {
             [APIHandler showMessage:[NSString stringWithFormat:@"Your Order has been successfully placed. Your Order Id is %@",jsonDict[@"order_id"]]];
-            [self dismissViewControllerAnimated:YES completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }];
 }
@@ -409,7 +410,8 @@
 
 //    [self removeController:controller];
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"cartItemCount"];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didFailTransaction:(PGTransactionViewController *)controller error:(NSError *)error response:(NSDictionary *)response

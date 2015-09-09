@@ -99,12 +99,14 @@
 - (void)userButtonClicked {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL loggedIn = [defaults boolForKey:@"isloggedin"];
-    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"]];
-
+//    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"]];
+    id viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"];
     if (loggedIn) {
-        appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"myAccountView"]];
+//        appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"myAccountView"]];
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"myAccountView"];
     }
-    [self presentViewController:appNavigationController animated:YES completion:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+//    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 

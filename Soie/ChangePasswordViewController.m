@@ -19,10 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIColor *color = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.7];
-    [Utilities setPlaceholderColorForObject:currentPasswordTextField ofColor:color];
-    [Utilities setPlaceholderColorForObject:newPasswordTextField ofColor:color];
-    [Utilities setPlaceholderColorForObject:confirmPasswordTextField ofColor:color];
+//    UIColor *color = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.7];
+//    [Utilities setPlaceholderColorForObject:currentPasswordTextField ofColor:color];
+//    [Utilities setPlaceholderColorForObject:newPasswordTextField ofColor:color];
+//    [Utilities setPlaceholderColorForObject:confirmPasswordTextField ofColor:color];
 
     self.title = @"Change Password";
     [self enableOrDisableAddButton];
@@ -35,23 +35,44 @@
 
 - (void)enableOrDisableAddButton{
     if ([self checkPasswordWithMessage:FALSE]) {
-        saveButton.enabled = YES;
+        submitButton.enabled = YES;
 //        saveButton.alpha = 1.0;
     }
     else {
-        saveButton.enabled = NO;
+        submitButton.enabled = NO;
 //        saveButton.alpha = 0.4;
     }
 }
 
 - (IBAction)saveButtonClicked:(id)sender {
+    if (![[[[NSUserDefaults standardUserDefaults] objectForKey:@"usernamePassword"] objectForKey:@"password"] isEqualToString:currentPasswordTextField.text]) {
+//        NSLog(@"%@ and %@",)
+        [APIHandler showMessage:@"Kindly enter the right password!"];
+        return;
+    }
+    
     if ([self checkPasswordWithMessage:TRUE]) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
+        NSString *urlString = [NSString stringWithFormat:@"%@account/password",API_BASE_URL];
+        NSMutableDictionary *postDictionary = [[[NSDictionary alloc] initWithObjectsAndKeys:
+                                        newPasswordTextField.text,@"password",
+                                        confirmPasswordTextField.text,@"confirm",
+//                                        [[[NSUserDefaults standardUserDefaults] objectForKey:@"usernamePassword"] objectForKey:@"email"],@"email",
+                                        nil] mutableCopy];
+        [APIHandler getResponseFor:postDictionary url:[NSURL URLWithString:urlString] requestType:@"PUT" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+            [ActivityIndicator stopAnimatingForView:self.view];
+            if (success) {
+                [postDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"usernamePassword"] objectForKey:@"email"] forKey:@"email"];
+                [[NSUserDefaults standardUserDefaults] setObject:postDictionary forKey:@"usernamePassword"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
     }
 }
 
 - (BOOL)checkPasswordWithMessage:(BOOL)showMessage {
-    if (currentPasswordTextField.text.length < 6 || newPasswordTextField.text.length < 6 || confirmPasswordTextField.text.length < 6) {
+    if (currentPasswordTextField.text.length < 5 || newPasswordTextField.text.length < 5 || confirmPasswordTextField.text.length < 5) {
         if (showMessage) {
             [APIHandler showMessage:@"Password should be atleast 6 characters long."];
         }
@@ -101,7 +122,6 @@
         [self enableOrDisableAddButton];
         return NO;
     }
-    
     return YES;
 }
 
