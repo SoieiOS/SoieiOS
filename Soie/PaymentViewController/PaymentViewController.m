@@ -39,17 +39,17 @@
     if (self.useCouponCodeButton.selected) {
         self.couponView.hidden = YES;
         if (self.couponView.frame.origin.y < self.view.frame.size.height-64) {
-            self.confirmView.frame = CGRectMake(0, self.view.frame.size.height-64, self.view.frame.size.width, 64);
+            self.confirmView.frame = CGRectMake(0, self.view.frame.size.height-50, self.view.frame.size.width, 50);
         }
         else {
-            self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y, self.view.frame.size.width, 64);
+            self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y, self.view.frame.size.width, 50);
         }
     }
     else {
         self.couponView.hidden = NO;
-        self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y+self.couponView.frame.size.height+10, self.view.frame.size.width, 64);
+        self.confirmView.frame = CGRectMake(0, self.couponView.frame.origin.y+self.couponView.frame.size.height+10, self.view.frame.size.width, 50);
     }
-    self.bgScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.confirmView.frame.origin.y+64);
+    self.bgScrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.confirmView.frame.origin.y+50);
     self.useCouponCodeButton.selected = !self.useCouponCodeButton.selected;
 }
 
@@ -88,7 +88,7 @@
                 }
             }
             else {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[jsonDict objectForKey:@"error"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:[[jsonDict objectForKey:@"error"] objectForKey:@"warning"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alertView show];
             }
         }];
