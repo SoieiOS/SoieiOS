@@ -25,7 +25,6 @@
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import "UIImageView+AFNetworking.h"
-#import "ResizeImage.h"
 
 @interface AFImageCache : NSCache
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
@@ -103,14 +102,14 @@ static char kAFImageRequestOperationObjectKey;
     UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
     if (cachedImage) {
         if (success) {
-            success(nil, nil, [ResizeImage squareImageWithImage:cachedImage scaledToSize:CGSizeMake(200, 200)]);
+            success(nil, nil, cachedImage);
         } else {
-            self.image = [ResizeImage squareImageWithImage:cachedImage scaledToSize:CGSizeMake(200, 200)];
+            self.image = cachedImage;
         }
 
         self.af_imageRequestOperation = nil;
     } else {
-        self.image = [ResizeImage squareImageWithImage:placeholderImage scaledToSize:CGSizeMake(200, 200)];
+        self.image = placeholderImage;
 
         AFImageRequestOperation *requestOperation = [[AFImageRequestOperation alloc] initWithRequest:urlRequest];
         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -118,7 +117,7 @@ static char kAFImageRequestOperationObjectKey;
                 if (success) {
                     success(operation.request, operation.response, responseObject);
                 } else if (responseObject) {
-                    self.image = [ResizeImage squareImageWithImage:responseObject scaledToSize:CGSizeMake(200, 200)];
+                    self.image = responseObject;
                 }
 
                 if (self.af_imageRequestOperation == operation) {
