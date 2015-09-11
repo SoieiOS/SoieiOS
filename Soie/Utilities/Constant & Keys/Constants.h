@@ -11,7 +11,8 @@
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-static NSString * API_BASE_URL = @"http://www.soie.in.php54-3.dfw1-2.websitetestlink.com/api/rest/";
+//static NSString * API_BASE_URL = @"http://www.soie.in.php54-3.dfw1-2.websitetestlink.com/api/rest/";
+static NSString * API_BASE_URL = @"http://www.soie.in/api/rest/";
 
 static NSString * applicationName = @"SOIE";
 

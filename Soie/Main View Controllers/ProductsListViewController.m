@@ -95,7 +95,7 @@
     
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    [Utilities makeRoundCornerForObject:cell ofRadius:8];
+//    [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *productInfo = [listOfProducts objectAtIndex:indexPath.row];
     if (productInfo) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
@@ -118,7 +118,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(width,width+63);
+    return CGSizeMake(width,width+100);
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section

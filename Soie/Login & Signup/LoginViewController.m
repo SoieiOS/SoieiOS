@@ -131,6 +131,7 @@
             [userDefaults1 setObject:postDictionary forKey:@"usernamePassword"];
             [userDefaults1 synchronize];
 //            NAVIGATE_TO_VIEW(myAccountViews);
+            [self dismissViewControllerAnimated:YES completion:nil];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }];

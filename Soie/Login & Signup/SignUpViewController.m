@@ -93,6 +93,7 @@
             NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
             [userDefaults1 setBool:YES forKey:@"isloggedin"];
             [userDefaults1 synchronize];
+            [self dismissViewControllerAnimated:YES completion:nil];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }];
