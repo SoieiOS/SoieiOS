@@ -30,13 +30,13 @@ typedef enum : NSUInteger {
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *titleLabel;
+@property (strong, nonatomic) NSString            *pickerTitle;
+@property (weak, nonatomic) IBOutlet UIButton   *confirmButton;
+@property (weak, nonatomic) IBOutlet UIButton   *backButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-
-@property (strong, nonatomic)NSMutableArray *listOfItems;
-@property (strong, nonatomic)NSString *optionId;
+@property (strong, nonatomic)NSMutableArray     *listOfItems;
+@property (strong, nonatomic)NSString           *optionId;
 
 @property (nonatomic, weak) id<PickerViewControllerDelegate> delegate;
 

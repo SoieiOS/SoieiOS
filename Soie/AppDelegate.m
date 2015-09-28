@@ -10,6 +10,7 @@
 #import "ActivityIndicator.h"
 #import "UserInformation.h"
 #import "APIHandler.h"
+#import "GAI.h"
 
 @interface AppDelegate ()
 
@@ -20,9 +21,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self setGoogleAnalyticsTracker];
     [ActivityIndicator getInstanceForYorigin:self.window.center.y -80 forXorigin:self.window.center.x-50];
     [UserInformation updateCategoryList];
     return YES;
+}
+
+- (void)setGoogleAnalyticsTracker {
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 20;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-67480869-1"];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker setAllowIDFACollection:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

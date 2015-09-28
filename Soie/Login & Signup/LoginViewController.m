@@ -74,7 +74,7 @@
         
         UIImageView *subview = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, scrollView.frame.size.height)];
         subview.image = [images objectAtIndex:i];
-//        subview.contentMode = UIViewContentModeScaleAspectFit;
+//        subview.contentMode = UIViewContentModeScaleAspectFill;
         //        subview.backgroundColor = [UIColor blackColor];
         [scrollView addSubview:subview];
     }

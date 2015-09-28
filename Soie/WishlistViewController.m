@@ -13,6 +13,7 @@
 #import "UserInformation.h"
 #import "ProductDetailsViewController.h"
 #import "BBBadgeBarButtonItem.h"
+#import "Constants.h"
 
 @interface WishlistViewController () {
     BBBadgeBarButtonItem *cartButton;
@@ -82,7 +83,6 @@ static NSString * const reuseIdentifier = @"productCell";
     
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-//    [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *productInfo = [_listOfProducts objectAtIndex:indexPath.row];
     if (productInfo) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
@@ -99,7 +99,14 @@ static NSString * const reuseIdentifier = @"productCell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(width,width+100);
+    return CGSizeMake(width,width+120);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        return UIEdgeInsetsMake(0,0,0,0);
+    }
+    return UIEdgeInsetsMake(0,8,0,8);
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section

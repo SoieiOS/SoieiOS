@@ -85,12 +85,12 @@
     
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-//    [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *productInfo = [listOfProducts objectAtIndex:indexPath.row];
     if (productInfo) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
         cell.priceLabel.attributedText = [Utilities getAttributedStringForDiscounts:productInfo];
         NSString *imageUrl = [productInfo objectForKey:@"image"];
+        cell.thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
         [cell.thumbnailImageView setImage:[UIImage imageNamed:@"no_image_products.png"]];
         if (imageUrl && ![imageUrl isEqual:[NSNull null]]) {
             [cell.thumbnailImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
@@ -109,15 +109,22 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(width,width+100);
+    return CGSizeMake(width,width+120);
 }
 
-- (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        return UIEdgeInsetsMake(0,0,0,0);
+    }
+    return UIEdgeInsetsMake(0,8,0,8);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5;
+    return 3;
 }
 
-- (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return 1;
 }

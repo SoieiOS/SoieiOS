@@ -15,6 +15,7 @@
 #import "CartObject.h"
 #import "UserInformation.h"
 #import "BBBadgeBarButtonItem.h"
+#import "ProductsListViewController.h"
 
 @interface ProductDetailsViewController () {
     CartObject              *cartInstance;
@@ -172,7 +173,16 @@
         frame.origin.y = 0;
         frame.size = cell.scrollView.frame.size;
         
-        UIImageView *subview = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, cell.scrollView.frame.size.height)];
+        CGRect viewFrame = CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, cell.scrollView.frame.size.height);
+        UIButton *button = [[UIButton alloc] initWithFrame:viewFrame];
+        [button addTarget:self
+                   action:@selector(loadProductsAccordingToBanner:)
+         forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:@"" forState:UIControlStateNormal];
+        button.tag = i;
+        [cell.scrollView addSubview:button];
+        
+        UIImageView *subview = [[UIImageView alloc] initWithFrame:viewFrame];
         subview.contentMode = UIViewContentModeScaleAspectFit;
         NSString *imageUrl = [[cartInstance.listOfBanners objectAtIndex:i] objectForKey:@"image"];
         imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -186,7 +196,13 @@
     cell.pageControl.numberOfPages = cartInstance.listOfBanners.count;
     
     cell.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * cartInstance.listOfBanners.count, cell.frame.size.height-30);
-    
+}
+
+- (void)loadProductsAccordingToBanner:(UIButton *)button {
+    ProductsListViewController *productListView = [self.storyboard instantiateViewControllerWithIdentifier:@"productsListView"];
+    productListView.title = [[cartInstance.listOfBanners objectAtIndex:button.tag] objectForKey:@"category_name"];
+    productListView.categoryId = [[cartInstance.listOfBanners objectAtIndex:button.tag] objectForKey:@"category_id"];
+    [self.navigationController pushViewController:productListView animated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -301,7 +317,7 @@
 - (void)openPickerViewWithTitle:(NSString *)title items:(NSMutableArray *)items optionId:(NSString *)optionId {
     SelectSizeColorViewController *selectSizeColorView = [self.storyboard instantiateViewControllerWithIdentifier:@"selectSizeColorView"];
     selectSizeColorView.delegate = self;
-    selectSizeColorView.titleLabel.text = title;
+    selectSizeColorView.pickerTitle = title;
     selectSizeColorView.listOfItems = items;
     selectSizeColorView.optionId = optionId;
     //    [self presentViewController:selectSizeColorView animated:YES completion:nil];

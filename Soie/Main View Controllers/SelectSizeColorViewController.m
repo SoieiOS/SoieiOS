@@ -40,6 +40,8 @@
     gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
     [self.pickerBackgroundView addGestureRecognizer:gestureRecognizer];
     
+    _titleLabel.text = _pickerTitle;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated {

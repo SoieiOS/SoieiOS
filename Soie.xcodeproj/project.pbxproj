@@ -164,6 +164,12 @@
 		AC510B1D1B5B95EC00EB0412 /* CountryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC510B1C1B5B95EC00EB0412 /* CountryListViewController.m */; };
 		AC6830A91B3C02A3006AA72E /* SelectSizeColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6830A81B3C02A3006AA72E /* SelectSizeColorViewController.m */; };
 		AC6BDBE11B9DF9A800DFF078 /* ForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6BDBE01B9DF9A800DFF078 /* ForgotPasswordViewController.m */; };
+		AC8F14831BB7B77F00612EE7 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8F14821BB7B77F00612EE7 /* libGoogleAnalyticsServices.a */; };
+		AC8F14851BB7C37E00612EE7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8F14841BB7C37E00612EE7 /* CoreData.framework */; };
+		AC8F14871BB7C39800612EE7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8F14861BB7C39800612EE7 /* QuartzCore.framework */; };
+		AC8F14891BB7C39F00612EE7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8F14881BB7C39F00612EE7 /* Accelerate.framework */; };
+		AC8F148B1BB7C3A500612EE7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8F148A1BB7C3A500612EE7 /* CoreTelephony.framework */; };
+		AC8F148D1BB7C3AC00612EE7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8F148C1BB7C3AC00612EE7 /* libz.dylib */; };
 		ACA812121B709B56007B8433 /* BillingAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA812111B709B56007B8433 /* BillingAddressViewController.m */; };
 		ACA812151B709B69007B8433 /* DileveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA812141B709B69007B8433 /* DileveryViewController.m */; };
 		ACA812191B709B8F007B8433 /* GuestLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA812181B709B8F007B8433 /* GuestLoginViewController.m */; };
@@ -413,6 +419,18 @@
 		AC6830A81B3C02A3006AA72E /* SelectSizeColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectSizeColorViewController.m; sourceTree = "<group>"; };
 		AC6BDBDF1B9DF9A800DFF078 /* ForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForgotPasswordViewController.h; path = "Login & Signup/ForgotPasswordViewController.h"; sourceTree = "<group>"; };
 		AC6BDBE01B9DF9A800DFF078 /* ForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForgotPasswordViewController.m; path = "Login & Signup/ForgotPasswordViewController.m"; sourceTree = "<group>"; };
+		AC8F147C1BB7B77F00612EE7 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		AC8F147D1BB7B77F00612EE7 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		AC8F147E1BB7B77F00612EE7 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		AC8F147F1BB7B77F00612EE7 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		AC8F14801BB7B77F00612EE7 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		AC8F14811BB7B77F00612EE7 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		AC8F14821BB7B77F00612EE7 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		AC8F14841BB7C37E00612EE7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AC8F14861BB7C39800612EE7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AC8F14881BB7C39F00612EE7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		AC8F148A1BB7C3A500612EE7 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		AC8F148C1BB7C3AC00612EE7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		ACA812101B709B56007B8433 /* BillingAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BillingAddressViewController.h; path = "Cart and Checkout/BillingAddressViewController.h"; sourceTree = "<group>"; };
 		ACA812111B709B56007B8433 /* BillingAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BillingAddressViewController.m; path = "Cart and Checkout/BillingAddressViewController.m"; sourceTree = "<group>"; };
 		ACA812131B709B69007B8433 /* DileveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DileveryViewController.h; path = "Cart and Checkout/DileveryViewController.h"; sourceTree = "<group>"; };
@@ -441,9 +459,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC8F148D1BB7C3AC00612EE7 /* libz.dylib in Frameworks */,
+				AC8F148B1BB7C3A500612EE7 /* CoreTelephony.framework in Frameworks */,
+				AC8F14891BB7C39F00612EE7 /* Accelerate.framework in Frameworks */,
+				AC8F14871BB7C39800612EE7 /* QuartzCore.framework in Frameworks */,
+				AC8F14851BB7C37E00612EE7 /* CoreData.framework in Frameworks */,
 				976EEFF81B7FAC41004D1314 /* SystemConfiguration.framework in Frameworks */,
 				978176581B7D083A0015212B /* FacebookSDK.framework in Frameworks */,
 				976EEFF61B7F9D51004D1314 /* libPaymentsSDK.a in Frameworks */,
+				AC8F14831BB7B77F00612EE7 /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +700,11 @@
 		AC35F3EB1B2B2A350018013C = {
 			isa = PBXGroup;
 			children = (
+				AC8F148C1BB7C3AC00612EE7 /* libz.dylib */,
+				AC8F148A1BB7C3A500612EE7 /* CoreTelephony.framework */,
+				AC8F14881BB7C39F00612EE7 /* Accelerate.framework */,
+				AC8F14861BB7C39800612EE7 /* QuartzCore.framework */,
+				AC8F14841BB7C37E00612EE7 /* CoreData.framework */,
 				976EEFF71B7FAC41004D1314 /* SystemConfiguration.framework */,
 				978176571B7D083A0015212B /* FacebookSDK.framework */,
 				AC35F3F61B2B2A350018013C /* Soie */,
@@ -758,6 +787,7 @@
 		AC35F41E1B2B32F30018013C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AC8F147B1BB7B77F00612EE7 /* GAI */,
 				AC12F4121B85E66200300AAE /* BBBadgeBarButtonItem */,
 				AC12F2DD1B7B9A5E00300AAE /* XL */,
 				AC001DD91B6F501F00BDEFD2 /* BDKNotifyHUD.h */,
@@ -948,6 +978,20 @@
 				976EEFDC1B7F73F2004D1314 /* PaymentViewController */,
 			);
 			name = "Cart and Checkout";
+			sourceTree = "<group>";
+		};
+		AC8F147B1BB7B77F00612EE7 /* GAI */ = {
+			isa = PBXGroup;
+			children = (
+				AC8F147C1BB7B77F00612EE7 /* GAI.h */,
+				AC8F147D1BB7B77F00612EE7 /* GAIDictionaryBuilder.h */,
+				AC8F147E1BB7B77F00612EE7 /* GAIFields.h */,
+				AC8F147F1BB7B77F00612EE7 /* GAILogger.h */,
+				AC8F14801BB7B77F00612EE7 /* GAITrackedViewController.h */,
+				AC8F14811BB7B77F00612EE7 /* GAITracker.h */,
+				AC8F14821BB7B77F00612EE7 /* libGoogleAnalyticsServices.a */,
+			);
+			path = GAI;
 			sourceTree = "<group>";
 		};
 		ACA812161B709B77007B8433 /* Guest Flow */ = {
@@ -1355,6 +1399,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Soie/PaymentsSDK",
+					"$(PROJECT_DIR)/Soie/Utilities/GAI",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1377,6 +1422,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Soie/PaymentsSDK",
+					"$(PROJECT_DIR)/Soie/Utilities/GAI",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

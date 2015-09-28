@@ -77,13 +77,6 @@
     }];
 }
 
-/*-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    MosaicLayout *layout = (MosaicLayout *)productCollectionView.collectionViewLayout;
-    [layout invalidateLayout];
-}*/
-
 #pragma mark C0llectionview Delegate-------------
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -95,7 +88,6 @@
     
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-//    [Utilities makeRoundCornerForObject:cell ofRadius:8];
     NSDictionary *productInfo = [listOfProducts objectAtIndex:indexPath.row];
     if (productInfo) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
@@ -118,7 +110,14 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width - 15)/2;
-    return CGSizeMake(width,width+100);
+    return CGSizeMake(width,width+120);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        return UIEdgeInsetsMake(0,0,0,0);
+    }
+    return UIEdgeInsetsMake(0,8,0,8);
 }
 
 - (CGFloat) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
