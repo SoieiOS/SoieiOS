@@ -26,7 +26,7 @@
     
 //    [self createHeaderView];
     self.tableView.backgroundColor = [UIColor whiteColor];
-    menuItems = @[@"User",@"Home",@"Explore", @"Favourites"];
+    menuItems = @[@"User",@"Home",@"Explore", @"Favourites",@"Blog",@"Store"];
 }
 
 - (void)createHeaderView {
@@ -140,7 +140,7 @@
     }
     id viewController;
     if (indexPath.row == 1) {
-        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"dashboardView"];
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"homeView"];
     }
     else if (indexPath.row == 2) {
         viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"categoryView"];
@@ -150,6 +150,12 @@
     else if (indexPath.row == 3) {
         viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"wishlistView"];
         [viewController setListOfProducts:[UserInformation getUserWishList]];
+    }
+    else if (indexPath.row == 4) {
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"blogView"];
+    }
+    else if (indexPath.row == 5) {
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"storesView"];
     }
     AppNavigationController* navController = (AppNavigationController*)self.revealViewController.frontViewController;
     [navController setViewControllers: @[viewController] animated: NO ];

@@ -16,7 +16,6 @@
 #import "BBBadgeBarButtonItem.h"
 
 @interface DashboardViewController () {
-    NSMutableArray                  *listOfCategories;
     IBOutlet UIBarButtonItem        *sidebarButton;
     BBBadgeBarButtonItem            *cartButton;
 }
@@ -36,15 +35,15 @@
     self.isElasticIndicatorLimit = YES;
     // Do any additional setup after loading the view.
 //    NSDictionary *userInfo = [UserInformation getUserInformation];
-    CartObject *cartInstance = [CartObject getInstance];
+//    CartObject *cartInstance = [CartObject getInstance];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults boolForKey:@"isloggedin"]) {
-        [APIHandler autoLoginUser:[userDefaults objectForKey:@"usernamePassword"] completionBlock:nil];
-    }
-    else if (cartInstance.sessionId.length == 0){
-        [APIHandler getSessionId];
-    }
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    if ([userDefaults boolForKey:@"isloggedin"]) {
+//        [APIHandler autoLoginUser:[userDefaults objectForKey:@"usernamePassword"] completionBlock:nil];
+//    }
+//    else if (cartInstance.sessionId.length == 0){
+//        [APIHandler getSessionId];
+//    }
     
     
     self.title = @"";
@@ -81,19 +80,19 @@
 }
 
 - (void)getListOfCategories {
-    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
-    NSString *urlString = [NSString stringWithFormat:@"%@/banner",API_BASE_URL];
-    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
-        [ActivityIndicator stopAnimatingForView:self.view];
-        if (success) {
-            NSLog(@"Response : %@",jsonDict);
-            CartObject *cartInstance = [CartObject getInstance];
-            cartInstance.listOfBanners = [[[jsonDict objectForKey:@"data"] objectForKey:@"banner"] mutableCopy];
-            listOfCategories = [[[jsonDict objectForKey:@"data"] objectForKey:@"cat_home"] mutableCopy];
-            _isReload = YES;
-            [self reloadPagerTabStripView];
-        }
-    }];
+//    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
+//    NSString *urlString = [NSString stringWithFormat:@"%@/banner",API_BASE_URL];
+//    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+//        [ActivityIndicator stopAnimatingForView:self.view];
+//        if (success) {
+//            NSLog(@"Response : %@",jsonDict);
+//            CartObject *cartInstance = [CartObject getInstance];
+//            cartInstance.listOfBanners = [[[jsonDict objectForKey:@"data"] objectForKey:@"banner"] mutableCopy];
+//            
+//        }
+//    }];
+    _isReload = YES;
+    [self reloadPagerTabStripView];
 }
 
 - (void)userButtonClicked {
@@ -116,9 +115,9 @@
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
     if (_isReload){
-        for (int i = 0;i < listOfCategories.count; i++) {
+        for (int i = 0;i < _listOfCategories.count; i++) {
             ChildCategoryViewController *childCategoryView = [self.storyboard instantiateViewControllerWithIdentifier:@"childCategoryView"];
-            childCategoryView.categoryInfo = [listOfCategories objectAtIndex:i];
+            childCategoryView.categoryInfo = [_listOfCategories objectAtIndex:i];
             [array addObject:childCategoryView];
         }
         return array;

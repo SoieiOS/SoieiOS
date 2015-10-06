@@ -61,9 +61,9 @@
 - (void)createTutorials {
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-    UIImage *image1 = [UIImage imageNamed:@"iosScreen750.png"];
-    UIImage *image2 = [UIImage imageNamed:@"iosScreen7501.png"];
-    UIImage *image3 = [UIImage imageNamed:@"iosScreen7502.png"];
+    UIImage *image1 = [UIImage imageNamed:@"l_banner_1.png"];
+    UIImage *image2 = [UIImage imageNamed:@"l_banner_2.png"];
+    UIImage *image3 = [UIImage imageNamed:@"l_banner_3.png"];
     
     NSArray *images = [NSArray arrayWithObjects:image1,image2,image3, nil];
     for (int i = 0; i < images.count; i++) {

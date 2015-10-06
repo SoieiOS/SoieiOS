@@ -32,7 +32,7 @@
 - (void)initializer
 {
     // Default design initialization
-    self.badgeBGColor   = [UIColor whiteColor];
+    self.badgeBGColor   = [UIColor clearColor];
     self.badgeTextColor = [UIColor darkGrayColor];
     self.badgeFont      = [UIFont systemFontOfSize:11.0];
     self.badgePadding   = 6;
@@ -42,6 +42,7 @@
     self.shouldHideBadgeAtZero = YES;
     self.shouldAnimateBadge = YES;
     // Avoids badge to be clipped when animating its scale
+//    self.customView.layer.cornerRadius = 5;
     self.customView.clipsToBounds = NO;
 }
 
@@ -141,7 +142,9 @@
         self.badge.layer.borderColor = [[UIColor colorWithRed:221/255.0 green:163/255.0 blue:178/255.0 alpha:1.0] CGColor];
         self.badge.layer.borderWidth = 1;
         self.badge.textColor            = self.badgeTextColor;
-        self.badge.backgroundColor      = self.badgeBGColor;
+        self.badge.backgroundColor      = [UIColor whiteColor];
+        self.badge.layer.cornerRadius = 10;
+        self.badge.layer.masksToBounds = YES;
         self.badge.font                 = self.badgeFont;
         self.badge.textAlignment        = NSTextAlignmentCenter;
 

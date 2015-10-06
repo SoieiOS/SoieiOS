@@ -89,6 +89,9 @@
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     NSDictionary *productInfo = [listOfProducts objectAtIndex:indexPath.row];
+    NSLog(@"Product No. : %ld",(long)indexPath.row);
+    NSLog(@"Product Info. : %@",productInfo);
+
     if (productInfo) {
         cell.titleLabel.text = [productInfo objectForKey:@"name"];
         cell.priceLabel.attributedText = [Utilities getAttributedStringForDiscounts:productInfo];

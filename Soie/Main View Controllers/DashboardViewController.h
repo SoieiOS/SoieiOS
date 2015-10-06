@@ -12,4 +12,5 @@
 
 @interface DashboardViewController : XLTwitterPagerTabStripViewController
 
+@property (nonatomic, strong) NSMutableArray                  *listOfCategories;
 @end

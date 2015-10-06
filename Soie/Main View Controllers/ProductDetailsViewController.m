@@ -47,7 +47,7 @@
     
     // Then create and add our custom BBBadgeBarButtonItem
     cartButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
-    
+    self.title = @"Product Details";
     self.navigationItem.rightBarButtonItem = cartButton;
 }
 
@@ -121,9 +121,6 @@
     if (indexPath.row == 0) {
         return 330;
     }
-//    else if (indexPath.row == 1) {
-//        return 50;
-//    }
     else if (indexPath.row == 1) {
         return 62;
     }
@@ -166,6 +163,7 @@
 }
 
 - (void)loadScrollViewForBanner:(CustomTableViewCell *)cell {
+    self.automaticallyAdjustsScrollViewInsets = NO;
     //    NSArray *images = [_productInfo objectForKey:@"images"];
     for (int i = 0; i < [cartInstance.listOfBanners count]; i++) {
         CGRect frame;
@@ -173,7 +171,7 @@
         frame.origin.y = 0;
         frame.size = cell.scrollView.frame.size;
         
-        CGRect viewFrame = CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, cell.scrollView.frame.size.height);
+        CGRect viewFrame = CGRectMake((self.view.frame.size.width * i),0, self.view.frame.size.width, 220);
         UIButton *button = [[UIButton alloc] initWithFrame:viewFrame];
         [button addTarget:self
                    action:@selector(loadProductsAccordingToBanner:)
@@ -195,10 +193,13 @@
     
     cell.pageControl.numberOfPages = cartInstance.listOfBanners.count;
     
-    cell.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * cartInstance.listOfBanners.count, cell.frame.size.height-30);
+    cell.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * cartInstance.listOfBanners.count, 220);
 }
 
 - (void)loadProductsAccordingToBanner:(UIButton *)button {
+    if ([[[cartInstance.listOfBanners objectAtIndex:button.tag] objectForKey:@"category_id"] integerValue] == 0) {
+        return;
+    }
     ProductsListViewController *productListView = [self.storyboard instantiateViewControllerWithIdentifier:@"productsListView"];
     productListView.title = [[cartInstance.listOfBanners objectAtIndex:button.tag] objectForKey:@"category_name"];
     productListView.categoryId = [[cartInstance.listOfBanners objectAtIndex:button.tag] objectForKey:@"category_id"];

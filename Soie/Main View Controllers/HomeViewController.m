@@ -16,8 +16,12 @@
 #import "CartObject.h"
 #import "AddressListViewController.h"
 #import "UserInformation.h"
+#import "DashboardViewController.h"
+#import "BBBadgeBarButtonItem.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () {
+    BBBadgeBarButtonItem            *cartButton;
+}
 
 @end
 
@@ -28,15 +32,15 @@
     // Do any additional setup after loading the view.
     
     CartObject *cartInstance = [CartObject getInstance];
-    NSDictionary *userInfo = [UserInformation getUserInformation];
-    
-    if (!userInfo && !cartInstance.sessionId.length > 0) {
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:@"isloggedin"]) {
+        [APIHandler autoLoginUser:[userDefaults objectForKey:@"usernamePassword"] completionBlock:nil];
+    }
+    else if (cartInstance.sessionId.length == 0){
         [APIHandler getSessionId];
     }
-    else {
-        cartInstance.sessionId  = [[userInfo objectForKey:@"user"] objectForKey:@"session"];
-    }
-
+    
     self.title = @"";
     
     sidebarButton.target = self.revealViewController;
@@ -44,29 +48,41 @@
     
     [self getListOfCategories];
     
-    UIBarButtonItem *userButton = [[UIBarButtonItem alloc] initWithTitle:@"User" style:UIBarButtonItemStyleDone target:self action:@selector(userButtonClicked)];
+    UIBarButtonItem *userButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_tab_profile.png"] style:UIBarButtonItemStyleDone target:self action:@selector(userButtonClicked)];
     
-    UIBarButtonItem *cartButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cart.png"] style:UIBarButtonItemStylePlain target:self action:@selector(cartButtonClicked)];
     
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    // Add your action to your button
+    [customButton addTarget:self action:@selector(cartButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    // Customize your button as you want, with an image if you have a pictogram to display for example
+    [customButton setImage:[UIImage imageNamed:@"cart.png"] forState:UIControlStateNormal];
+    
+    // Then create and add our custom BBBadgeBarButtonItem
+    cartButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     self.navigationItem.rightBarButtonItems = @[cartButton,userButton];
     
 //    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"checkoutView"] animated:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    cartButton.badgeValue = [[NSUserDefaults standardUserDefaults] objectForKey:@"cartItemCount"];
+}
+
 - (void)cartButtonClicked {
-//    CartObject *cartInstance = [CartObject getInstance];
-//
-//    if (!cartInstance.listOfCartItems.count > 0) {
-//        [APIHandler showMessage:@"There are no items in the cart."];
-//        return;
-//    }
-    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"cartView"]];
-    [self presentViewController:appNavigationController animated:YES completion:nil];
+    [UserInformation openCartView:self];
 }
 
 - (void)userButtonClicked {
-    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"]];
-    [self presentViewController:appNavigationController animated:YES completion:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL loggedIn = [defaults boolForKey:@"isloggedin"];
+    //    AppNavigationController *appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"]];
+    id viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"overviewView"];
+    if (loggedIn) {
+        //        appNavigationController = [[AppNavigationController alloc] initWithRootViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"myAccountView"]];
+        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"myAccountView"];
+    }
+    [self.navigationController pushViewController:viewController animated:YES];
+    //    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +97,8 @@
         [ActivityIndicator stopAnimatingForView:self.view];
         if (success) {
             NSLog(@"Response : %@",jsonDict);
-            listOfBanner = [[[jsonDict objectForKey:@"data"] objectForKey:@"banner"] mutableCopy];
+            CartObject *cartInstance = [CartObject getInstance];
+            cartInstance.listOfBanners = [[[jsonDict objectForKey:@"data"] objectForKey:@"banner"] mutableCopy];
 
             listOfCategories = [[[jsonDict objectForKey:@"data"] objectForKey:@"cat_home"] mutableCopy];
             [homeTableview reloadData];
@@ -89,37 +106,37 @@
     }];
 }
 
-- (void)getListOfFeaturedProducts {
-    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
-    NSString *urlString = [NSString stringWithFormat:@"%@/featured",API_BASE_URL];
-    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
-        [ActivityIndicator stopAnimatingForView:self.view];
-        
-        if (success) {
-            NSLog(@"Response : %@",jsonDict);
-            listOfFeaturedProducts = [[jsonDict objectForKey:@"data"] mutableCopy];
-            [homeTableview reloadData];
-        }
-        [self getListOfNewCollection];
-    }];
-}
-
-- (void)getListOfNewCollection {
-    NSString *urlString = [NSString stringWithFormat:@"%@/newcollection",API_BASE_URL];
-    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){        
-        if (success) {
-            NSLog(@"Response : %@",jsonDict);
-            listOfNewCollection = [[jsonDict objectForKey:@"data"] mutableCopy];
-            [homeTableview reloadData];
-        }
-    }];
-}
+//- (void)getListOfFeaturedProducts {
+//    [ActivityIndicator startAnimatingWithText:@"Loading" forView:self.view];
+//    NSString *urlString = [NSString stringWithFormat:@"%@/featured",API_BASE_URL];
+//    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){
+//        [ActivityIndicator stopAnimatingForView:self.view];
+//        
+//        if (success) {
+//            NSLog(@"Response : %@",jsonDict);
+//            listOfFeaturedProducts = [[jsonDict objectForKey:@"data"] mutableCopy];
+//            [homeTableview reloadData];
+//        }
+//        [self getListOfNewCollection];
+//    }];
+//}
+//
+//- (void)getListOfNewCollection {
+//    NSString *urlString = [NSString stringWithFormat:@"%@/newcollection",API_BASE_URL];
+//    [APIHandler getResponseFor:nil url:[NSURL URLWithString:urlString] requestType:@"GET" complettionBlock:^(BOOL success,NSDictionary *jsonDict){        
+//        if (success) {
+//            NSLog(@"Response : %@",jsonDict);
+//            listOfNewCollection = [[jsonDict objectForKey:@"data"] mutableCopy];
+//            [homeTableview reloadData];
+//        }
+//    }];
+//}
 
 #pragma mark Tableview Delegates
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return listOfCategories.count+1;
+    return listOfCategories.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -128,45 +145,52 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
     /* Create custom view to display section header... */
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10)];
     [label setFont:[UIFont boldSystemFontOfSize:15]];
     label.textColor = [UIColor darkGrayColor];
     label.textAlignment = NSTextAlignmentCenter;
     
     /* Section header is in 0th index... */
-    if (section == 0) {
-        [label setText:@"Soie"];
-    }
-    else {
-        [label setText:[[listOfCategories objectAtIndex:section-1] objectForKey:@"name"]];
-    }
+//    if (section == 0) {
+//        [label setText:@"Soie"];
+//    }
+//    else {
+//        [label setText:[[listOfCategories objectAtIndex:section-1] objectForKey:@"name"]];
+//    }
     [view addSubview:label];
     [view setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1.0]]; //your background color...
     return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 300;
-    }
+//    if (indexPath.section == 0) {
+//        return 300;
+//    }
     return 150;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CustomTableViewCell *cell;
-    if (indexPath.section == 0) {
-        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"scrollViewCell"];
-        [self loadScrollViewForBanner:cell];
-    }
-    else {
+//    if (indexPath.section == 0) {
+//        cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"scrollViewCell"];
+//        [self loadScrollViewForBanner:cell];
+//    }
+//    else {
         cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"categoryCell"];
-        NSString *imageUrl = [[listOfCategories objectAtIndex:indexPath.section-1] objectForKey:@"image"];
+        NSString *imageUrl = [[listOfCategories objectAtIndex:indexPath.section] objectForKey:@"image"];
         imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        [cell.iconImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+        [cell.iconImageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"no_image_products.png"]];
+//    [cell.iconImageView setima]
+    cell.iconImageView.contentMode = UIViewContentModeScaleAspectFit;
+
+    [cell.iconImageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]] placeholderImage:[UIImage imageNamed:@"no_image_products.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        cell.iconImageView.contentMode = UIViewContentModeScaleToFill;
+        cell.iconImageView.image = image;
+    } failure:NULL];
 //        if (indexPath.row == 1) {
 //            cell.titleLabel.text = @"Featured Products";
 //            [self loadScrollViewForFeaturedProducts:cell collection:listOfFeaturedProducts];
@@ -175,17 +199,20 @@
 //            cell.titleLabel.text = @"New Collections";
 //            [self loadScrollViewForFeaturedProducts:cell collection:listOfNewCollection];
 //        }
-    }
+//    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    ProductsListViewController *productListView = [self.storyboard instantiateViewControllerWithIdentifier:@"productsListView"];
-    productListView.title = [[listOfCategories objectAtIndex:indexPath.section-1] objectForKey:@"name"];
-    productListView.categoryId = [[listOfCategories objectAtIndex:indexPath.section-1] objectForKey:@"category_id"];
-    [self.navigationController pushViewController:productListView animated:YES];
+    DashboardViewController *dashboardView = [self.storyboard instantiateViewControllerWithIdentifier:@"dashboardView"];
+    dashboardView.listOfCategories = listOfCategories;
+    [self.navigationController pushViewController:dashboardView animated:YES];
+//    ProductsListViewController *productListView = [self.storyboard instantiateViewControllerWithIdentifier:@"productsListView"];
+//    productListView.title = [[listOfCategories objectAtIndex:indexPath.section-1] objectForKey:@"name"];
+//    productListView.categoryId = [[listOfCategories objectAtIndex:indexPath.section-1] objectForKey:@"category_id"];
+//    [self.navigationController pushViewController:productListView animated:YES];
 //    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"candidateFeedView"] animated:YES];
 }
 
@@ -229,7 +256,7 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 200, 200)];
         NSString *imageUrl = [productInfo objectForKey:@"image"];
         imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"userPlaceholder.jpg"]];
+        [imageView setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"placeHolder.png"]];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [subview addSubview:imageView];
         

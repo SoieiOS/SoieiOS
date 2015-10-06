@@ -35,7 +35,7 @@
 - (void)addBackgroundView {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height)];
     imageView.contentMode = UIViewContentModeScaleToFill;
-    imageView.image = [UIImage imageNamed:@"iosScreen720.png"];
+    imageView.image = [UIImage imageNamed:@"login_bg.png"];
     [self.view insertSubview:imageView atIndex:0];
 }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,16 +11,17 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_launcher_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="gEu-hs-19u">
-                    <rect key="frame" x="120" y="119" width="240" height="148"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soie_logo_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="gEu-hs-19u">
+                    <rect key="frame" x="0.0" y="119" width="480" height="148"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="148" id="Ajh-7v-QUl"/>
-                        <constraint firstAttribute="width" constant="240" id="iw3-ai-qon"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.52549019607843139" green="0.52549019607843139" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="gEu-hs-19u" secondAttribute="trailing" id="4GX-GI-2Vf"/>
+                <constraint firstItem="gEu-hs-19u" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4c7-Sj-jSa"/>
                 <constraint firstAttribute="centerX" secondItem="gEu-hs-19u" secondAttribute="centerX" id="HBL-lk-zE0"/>
                 <constraint firstAttribute="centerY" secondItem="gEu-hs-19u" secondAttribute="centerY" constant="47" id="TVa-ED-aGr"/>
             </constraints>
@@ -30,6 +31,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_launcher_logo.png" width="285" height="365"/>
+        <image name="soie_logo_img.png" width="720" height="120"/>
     </resources>
 </document>
